@@ -1,0 +1,119 @@
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; background: #fff; padding: 1.5rem 1rem; }
+  :root {
+    --bg: #ffffff; --bg2: #f5f5f5; --bord: #e0e0e0; --bord2: #c8c8c8;
+    --txt: #1a1a1a; --txt2: #666666; --rad: 12px; --rad2: 8px;
+  }
+  .section { margin-bottom: 2.5rem; }
+  h2 { font-size: 17px; font-weight: 600; margin: 0 0 4px; color: var(--txt); }
+  .lead { font-size: 13px; color: var(--txt2); margin: 0 0 1rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: .5rem 0; }
+  .card { background: var(--bg); border: 0.5px solid var(--bord); border-radius: var(--rad); padding: 1.1rem; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 999px; margin-bottom: 9px; }
+  .tag-sound { background:#EEEDFE;color:#3C3489} .tag-art{background:#FBEAF0;color:#72243E}
+  .tag-touch{background:#E1F5EE;color:#0F6E56} .tag-sweet{background:#FAEEDA;color:#633806}
+  .tag-vision{background:#E6F1FB;color:#0C447C} .tag-move{background:#EAF3DE;color:#3B6D11}
+  .tag-grow{background:#E1F5EE;color:#0F6E56} .tag-make{background:#EEEDFE;color:#3C3489}
+  .tag-explore{background:#FAEEDA;color:#633806} .tag-create{background:#FBEAF0;color:#72243E}
+  .tag-home{background:#EAF3DE;color:#3B6D11}
+  .card-title{font-size:15px;font-weight:500;color:var(--txt);margin:0 0 5px}
+  .card-sub{font-size:12px;color:var(--txt2);margin:0 0 9px;line-height:1.6}
+  .card-scene{font-size:12px;color:var(--txt);line-height:1.7;border-left:2px solid var(--bord2);padding-left:9px;margin:9px 0}
+  .card-ai{font-size:11px;color:var(--txt2);display:flex;align-items:flex-start;gap:5px;margin-top:9px;border-top:.5px solid var(--bord);padding-top:9px}
+  .ai-label{color:#185FA5;font-weight:500;white-space:nowrap;flex-shrink:0}
+  .note{font-size:10px;color:var(--txt2);margin-top:7px;font-style:italic}
+  .route-label{font-size:11px;font-weight:500;color:var(--txt2);margin:0 0 5px;letter-spacing:.03em}
+  .route{background:var(--bg2);border-radius:var(--rad2);padding:10px 12px;margin-bottom:9px}
+  .route-title{font-size:13px;font-weight:500;color:var(--txt);margin:0 0 5px}
+  .route-scene{font-size:12px;color:var(--txt);line-height:1.7;border-left:2px solid var(--bord2);padding-left:9px;margin:0}
+  .divider{text-align:center;font-size:11px;color:var(--txt2);margin:3px 0 9px}
+  .more-content{overflow:hidden;max-height:0;transition:max-height .5s ease,opacity .4s ease;opacity:0}
+  .more-content.open{max-height:99999px;opacity:1}
+  .more-btn{display:inline-flex;align-items:center;gap:7px;margin:.5rem 0 0;padding:9px 18px;background:#fff;border:1px solid #d0d0d0;border-radius:999px;font-size:13px;color:#444;cursor:pointer;transition:background .2s,border-color .2s;font-family:inherit}
+  .more-btn:hover{background:#f5f5f5;border-color:#aaa}
+  .arrow{display:inline-block;width:15px;height:15px;transition:transform .3s ease;flex-shrink:0}
+  .more-btn.open .arrow{transform:rotate(180deg)}
+</style>
+
+<section class="section">
+  <h2>特性が輝く親子AIプロジェクト</h2>
+  <p class="lead">「こだわり」「感じ方の強さ」がそのまま才能になる10のヒント</p>
+  <div class="grid">
+    <div class="card">
+      <span class="tag tag-sound">🎧 聴覚・音へのこだわり</span>
+      <p class="card-title">音の達人には、2つの道がある</p>
+      <p class="card-sub">電車の入線音・アナウンス・英語のネイティブ発音を耳だけで完璧に再現できる子。その力を、音のまま思いきり発揮できるプロジェクトがある。</p>
+      <p class="route-label">道① 親子で対決する</p>
+      <div class="route"><p class="route-title">AI英会話で、親に勝つ</p><p class="route-scene">AIと英語で会話して、発音・流暢さをその場でフィードバックしてもらう。親も一緒に挑戦して、スコアで対決する。音の記憶力が抜群なこの子たちは、たいてい親を追い越す。「また負けた」と悔しがる親の顔が、最高のご褒美になる。</p></div>
+      <div class="divider">または</div>
+      <p class="route-label">道② 世界に発信する</p>
+      <div class="route"><p class="route-title">自分の声だけで路線を再現、YouTubeへ</p><p class="route-scene">○○線・○○駅から○○駅まで、アナウンス・入線音・ドアの開閉音・車内の雑音を自分の声だけで完全再現した動画を作る。AIと一緒に動画の概要欄や説明文を考えて投稿する。鉄道再現動画は世界中にファンがいる立派なジャンルで、海外からコメントが届くこともある。</p></div>
+      <p class="card-ai"><span class="ai-label">AI活用</span>英会話の発音フィードバック・採点役／動画の概要欄・説明文づくり／「次はどの路線？」企画相談</p>
+      <p class="note">※YouTube投稿は保護者管理のアカウントで。自分の声で再現したオリジナル音声は著作権上も問題なし。</p>
+    </div>
+    <div class="card"><span class="tag tag-art">🎨 視覚・反復描画へのこだわり</span><p class="card-title">描きためた絵をグッズにして世界に出す</p><p class="card-sub">同じテーマを何度でも描き続ける子の絵には、独自の世界観と一貫したスタイルがある。それは立派なアーティストの強みそのもの。</p><p class="card-scene">描いた絵をスマホで撮影してAIに「この絵のテーマや魅力を一言で表して」と聞き、商品説明文を一緒に作る。SUZURIやBOOTHでTシャツ・缶バッジ・ステッカーにしてオンラインで販売したり、地域のマルシェで発表したりする。</p><p class="card-ai"><span class="ai-label">AI活用</span>作品コンセプトの言語化／商品紹介文づくり／「次のシリーズ」アイディア出し</p><p class="note">※オリジナル作品のグッズ化・販売は著作権上の問題なし。保護者管理のもとで出品できます</p></div>
+    <div class="card"><span class="tag tag-sweet">🍰 スイーツへのこだわり</span><p class="card-title">お店のスイーツを写真に撮って家で再現する</p><p class="card-sub">気になるスイーツを見ると目が離せない子は、色・形・質感への観察眼が鋭い。その観察力をレシピ開発に活かす。</p><p class="card-scene">カフェや洋菓子店で気になったスイーツを写真に撮り、家に帰ってAIに「この見た目から材料と作り方を推理して」と頼む。推理したレシピで作ってみて、食べ比べる。「どこが違った？」の記録が積み重なって、オリジナルレシピブックができあがる。</p><p class="card-ai"><span class="ai-label">AI活用</span>写真からレシピを推理／材料の代替案提案／記録の文章化サポート</p></div>
+    <div class="card"><span class="tag tag-touch">🌿 触覚鈍麻・感触を求める旅</span><p class="card-title">「感触の旅」マップをつくる</p><p class="card-sub">強い感触を求めて動き回る子は、身体を通して世界を探索している。その行動を「旅」として記録すると、立派な感覚探究プロジェクトになる。</p><p class="card-scene">ボールプール・砂浜・落ち葉の坂・芝生・泥・岩場など、行った場所の感触を「ふかふか／ざらざら／ぐにゅぐにゅ」などの言葉でAIと一緒に記録する。訪れた場所を地図に貼って「感触スポット図鑑」を作る。次の旅先を親子でAIと相談して決める。</p><p class="card-ai"><span class="ai-label">AI活用</span>感触の言語化サポート／近くの感触スポット候補を調べる／図鑑テキストの整理</p></div>
+    <div class="card"><span class="tag tag-touch">📦 触覚鈍麻・家の中でも</span><p class="card-title">「手触りコレクション箱」をつくる</p><p class="card-sub">さまざまな素材の感触を集め、目を閉じて当てるおもちゃを手作りする。感触の違いを言葉にする力が、観察力と語彙力を同時に育てる。</p><p class="card-scene">ふわふわ・つるつる・ごつごつ・ぬるぬるなど、好きな感触の素材（スポンジ・石・ビーズ・布・木の実など）を集めて小箱に入れる。AIに「この感触をもっと面白い言葉で表現して」と聞きながら、感触カードを作る。友達や家族に目隠しで当ててもらうゲームに発展させる。</p><p class="card-ai"><span class="ai-label">AI活用</span>感触の豊かな言葉を一緒に探す／素材集めのアイディア出し／カードの文章づくり</p></div>
+    <div class="card"><span class="tag tag-vision">✨ 視覚過敏・光と色への敏感さ</span><p class="card-title">「光の図鑑」を一年かけてつくる</p><p class="card-sub">光や色の微妙な変化に敏感な子は、誰も気づかない美しさを見ている。その感覚を写真と言葉で記録すると、世界に一つの作品集になる。</p><p class="card-scene">朝日・夕焼け・雨上がりの水たまり・木漏れ日・窓ガラスの反射など、気になる光をスマホで撮影する。「今日の光は何色だった？どんな気持ちになった？」をAIと話し合いながら記録する。季節ごとに並べると、子どもだけの「光の図鑑」が完成する。</p><p class="card-ai"><span class="ai-label">AI活用</span>色や光の言語化サポート／詩・キャプション文づくり／写真の構図アドバイス</p></div>
+    <div class="card"><span class="tag tag-sound">👃 嗅覚・味覚へのこだわり</span><p class="card-title">「においの地図」を街でつくる</p><p class="card-sub">においに敏感な子は、その場所の記憶を嗅覚で保存している。パン屋の前・雨上がりの土・花屋・川岸——その感覚は詩人のものだ。</p><p class="card-scene">お出かけ中に「ここはどんなにおいがする？」を言葉にしてメモする。家に帰ってAIに「このにおいの正体は何？なぜそのにおいがするの？」と聞いて科学的な理由を探る。場所・においの言葉・理由を地図に書き込んで「においの散歩地図」をつくる。</p><p class="card-ai"><span class="ai-label">AI活用</span>においの正体・原理の解説／豊かな言葉で表現するサポート／地図テキストの整理</p></div>
+    <div class="card"><span class="tag tag-move">🏃 固有覚・動きへのこだわり</span><p class="card-title">「体の動きアーカイブ」をつくる</p><p class="card-sub">くるくる回る・高いところから飛び降りる・重いものを運びたがる子は、固有受容覚（体の位置感覚）を強く求めている。その動きを記録して研究する。</p><p class="card-scene">「今日気持ちよかった動き」を毎日一つ動画に撮る。AIに「この動きはどこの筋肉を使ってる？」「スポーツの中でこれに似た動きは？」と聞く。蓄積した動画とAIの解説をまとめて「自分の体の取扱説明書」を作る。</p><p class="card-ai"><span class="ai-label">AI活用</span>動きの科学的な解説／似た動きのスポーツや遊びを提案／記録テキストの整理</p></div>
+    <div class="card"><span class="tag tag-art">📚 こだわりテーマの深掘り</span><p class="card-title">「マイ百科事典」を一冊作る</p><p class="card-sub">電車・恐竜・昆虫・天気など、特定のテーマに異常なほど詳しい子がいる。その知識の深さをAIと一緒に「本」にする。</p><p class="card-scene">子どもが「これ知ってる！」と言えることをAIに話す。AIが「それ、もっと詳しく教えて」と聞き返し、会話を文章に整理する。子どもが絵を描き、AIが文を整えて、完全オリジナルの百科事典ページが完成していく。半年後には立派な一冊になる。</p><p class="card-ai"><span class="ai-label">AI活用</span>知識を引き出す対話役／話し言葉を文章に整理／「さらに深める」次の問いかけ</p></div>
+    <div class="card"><span class="tag tag-move">🌳 前庭覚・バランス感覚の探究</span><p class="card-title">ネイチャーゲームで感覚を地図にする</p><p class="card-sub">揺れる・回る・登る・滑るを繰り返す子は、前庭覚（平衡感覚）を通して世界を理解している。自然の中でその感覚を思いきり使い、記録する。</p><p class="card-scene">山や公園で「目を閉じて立つ」「片足で何秒立てる？」「坂をゆっくり下りる」などのネイチャーゲームに挑戦する。「今日できたこと」「難しかったこと」をAIと振り返り、体の変化を記録する。季節ごとに挑戦して「自分のバランス成長記録」を作る。</p><p class="card-ai"><span class="ai-label">AI活用</span>挑戦の振り返り対話／感覚の科学的な解説／次のチャレンジを一緒に考える</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>親子AIプロジェクト ひらめきカード</h2>
+  <p class="lead">特性のある子どもと、一緒に「面白い！」を見つけるための10のヒント</p>
+  <button class="more-btn" id="more-btn" aria-expanded="false" aria-controls="more-content">
+    <svg class="arrow" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 5.5L8 10.5L13 5.5" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    10枚のカードを見る
+  </button>
+  <div class="more-content" id="more-content" aria-hidden="true">
+    <div class="grid">
+      <div class="card"><span class="tag tag-grow">🌱 育てる</span><p class="card-title">知らない植物を育てる記録係になる</p><p class="card-sub">麦・大豆・綿など、普段は「食品」や「布」としか見たことがない植物を種から育てる。</p><p class="card-scene">毎日写真を撮って「今日の気づき」をAIに話しかける。「葉っぱが黄色くなってきた、なんで？」という子どもの疑問をそのまま入力すると、AIが一緒に考えてくれる。数か月のやりとりが"成長日誌"になる。</p><p class="card-ai"><span class="ai-label">AI活用</span>生育の疑問に答える／写真の変化を言葉で記録／収穫後の「何に使える？」アイディア出し</p></div>
+      <div class="card"><span class="tag tag-explore">🐛 観察する</span><p class="card-title">生き物の名前あてクイズを作る</p><p class="card-sub">お出かけ先や庭で見つけた虫・鳥・草を写真に撮る。</p><p class="card-scene">「これ何だろう？」と子どもが気になった生き物をAIに見せて名前を調べ、そこから「どこに住んでるの？」「何食べてるの？」と掘り下げる。お気に入りの発見をカードにまとめて"図鑑"を手作りする。</p><p class="card-ai"><span class="ai-label">AI活用</span>生き物の同定ヒント／生態の深掘り質問に答える／図鑑テキストの文章づくりサポート</p></div>
+      <div class="card"><span class="tag tag-make">🔧 つくる</span><p class="card-title">古い機械をバラして"中身"を地図にする</p><p class="card-sub">壊れた時計・ラジオ・扇風機など、安全に分解できるものを一緒に開ける。</p><p class="card-scene">部品を取り出しながら「これ何の役割？」とAIに聞く。写真に撮った部品を並べて"内部マップ"を描く。「電気はここからここへ流れる」が目に見えてくると、子どもの目が輝きはじめる。</p><p class="card-ai"><span class="ai-label">AI活用</span>部品名・機能の説明／「なぜそこに付いているか」の解説／工作への再利用アイディア提案</p></div>
+      <div class="card"><span class="tag tag-make">🔧 つくる</span><p class="card-title">ラズパイキットを親子で組み立てる</p><p class="card-sub">Raspberry Pi PicoなどのPCキットを買ってきて、親も初心者として一緒に組み立てる。</p><p class="card-scene">「次はどのピンに刺す？」とAIに画像を見せながら確認する。親が「わからない」を素直に見せることで、子どもが"一緒に解決する体験"になる。完成したLEDが光る瞬間は格別。</p><p class="card-ai"><span class="ai-label">AI活用</span>配線の手順確認／エラーのトラブルシューティング／「次に何ができる？」アイディア提案</p></div>
+      <div class="card"><span class="tag tag-create">🎨 表現する</span><p class="card-title">旅の記憶を"絵本"にする</p><p class="card-sub">キャンプや旅行の後、子どもが覚えている「場面」を言葉で話してもらう。</p><p class="card-scene">「一番びっくりしたことは？」「どんな音がした？」という問いに子どもが答え、それをAIが文章にしてくれる。子どもが絵を描き、親がAIと一緒に文を整えて、完全オリジナルの旅行絵本ができあがる。</p><p class="card-ai"><span class="ai-label">AI活用</span>子どもの言葉から文章を生成／語感・リズムの調整／続きのストーリー提案</p></div>
+      <div class="card"><span class="tag tag-explore">🏕️ 外で調べる</span><p class="card-title">近所の"なぜ？"地図をつくる</p><p class="card-sub">散歩中や公園で「これなんで？」と思ったことをスマホにメモする。</p><p class="card-scene">「川の水がここだけ茶色い」「このコンクリートに穴がいっぱいある」など、子どもが気になった不思議を集める。家に帰ってAIと一緒に調べて「答え地図」を作る。街が理科の教室になる。</p><p class="card-ai"><span class="ai-label">AI活用</span>疑問への回答と解説／地図テキストの整理／「もっと深めるなら」の次の問いかけ</p></div>
+      <div class="card"><span class="tag tag-home">🍳 台所から</span><p class="card-title">お手伝いから"実験ノート"に育てる</p><p class="card-sub">料理のお手伝いを、実験として記録する習慣をつける。</p><p class="card-scene">「卵を白身と黄身に分けるとき、なぜ分かれるの？」「砂糖を加熱するとなんで茶色くなる？」という台所の疑問をその場でAIに聞く。記録が積み重なると、子どもだけの"台所サイエンスブック"が完成する。</p><p class="card-ai"><span class="ai-label">AI活用</span>料理中の疑問にリアルタイム回答／科学的な理由を子ども向けに説明／レシピ改変アイディア</p></div>
+      <div class="card"><span class="tag tag-create">🎶 表現する</span><p class="card-title">「好きな音」だけで曲をつくる</p><p class="card-sub">子どもが「好き」と言う音・リズムをスマホで録音する。</p><p class="card-scene">雨の音、踏切の音、鉛筆を走らせる音。それをAIに「これを使って詩を書いて」と頼んだり、音楽生成AIで伴奏を作ってもらう。自分だけの感覚が"作品"になる体験は、特性のある子どもに特に響くことが多い。</p><p class="card-ai"><span class="ai-label">AI活用</span>録音した音から詩・物語の生成／音楽AIとの連携ヒント／「感覚の言語化」のサポート</p></div>
+      <div class="card"><span class="tag tag-home">🌙 毎日の記録</span><p class="card-title">「今日の天気と気分」を記録する気象観測</p><p class="card-sub">毎朝、空の写真と気分を一言日記にする。</p><p class="card-scene">「くもり。ちょっとどんより」「快晴。なんか楽しい気がする」という記録を1か月続け、AIに「天気と気分のつながりはある？」と分析してもらう。自分のパターンが見えてくる体験が、感覚理解の入口になる。</p><p class="card-ai"><span class="ai-label">AI活用</span>記録の読み上げ補助／パターンのやさしい分析／「次はどんな実験する？」の発展提案</p></div>
+      <div class="card"><span class="tag tag-make">🏗️ 設計する</span><p class="card-title">「自分の部屋」を設計してAIと議論する</p><p class="card-sub">子どもが「こんな部屋に住みたい」を紙に描く。</p><p class="card-scene">「窓をここに3つ並べたい」という絵をAIに見せて「日当たりはどうなる？」と聞く。AIが「じゃあ東と西で違うよ」と返し、子どもがまた描き直す。設計と対話を繰り返すうちに、思考が深まり、自信もつく。</p><p class="card-ai"><span class="ai-label">AI活用</span>設計の実現可能性の確認／「なぜそうしたいの？」の問い返し役／材料・構造の基礎知識提供</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var btn=document.getElementById('more-btn');
+  var content=document.getElementById('more-content');
+  if(!btn||!content)return;
+  btn.addEventListener('click',function(){
+    var open=content.classList.contains('open');
+    if(open){
+      content.classList.remove('open');
+      content.setAttribute('aria-hidden','true');
+      btn.setAttribute('aria-expanded','false');
+      btn.classList.remove('open');
+      setTxt(btn,false);
+    }else{
+      content.classList.add('open');
+      content.setAttribute('aria-hidden','false');
+      btn.setAttribute('aria-expanded','true');
+      btn.classList.add('open');
+      setTxt(btn,true);
+    }
+  });
+  function setTxt(btn,open){
+    var nodes=btn.childNodes;
+    for(var i=0;i<nodes.length;i++){
+      if(nodes[i].nodeType===3){nodes[i].textContent=open?' 閉じる':' 10枚のカードを見る';}
+    }
+  }
+})();
+</script>
