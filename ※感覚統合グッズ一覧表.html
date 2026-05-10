@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>感覚・支援グッズ一覧 | 光の翼</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif;background:#fdf9f7;color:#2c2a28;line-height:1.6;}
+.page-wrap{max-width:680px;margin:0 auto;padding:2rem 1rem 3rem;}
+
+/* ===== ページヘッダー ===== */
+.page-header{text-align:center;padding:1.5rem 0 2rem;}
+.page-header h1{font-size:22px;font-weight:500;color:#2c2a28;line-height:1.45;margin-bottom:0.5rem;}
+.page-header p{font-size:13px;color:#888780;line-height:1.7;}
+.header-accent{display:inline-block;width:40px;height:3px;background:#D4537E;border-radius:2px;margin-bottom:1rem;}
+
+/* ===== セクション切り替えタブ ===== */
+.section-switcher{display:flex;gap:8px;margin-bottom:2rem;}
+.switch-btn{flex:1;padding:0.85rem 0.5rem;border-radius:12px;border:1.5px solid #e0ddd8;background:#fff;cursor:pointer;text-align:center;transition:all 0.2s;}
+.switch-btn.active{border-color:#D4537E;background:#fff8fa;}
+.switch-btn .sw-icon{font-size:20px;display:block;margin-bottom:4px;}
+.switch-btn .sw-label{font-size:13px;font-weight:500;color:#2c2a28;display:block;}
+.switch-btn .sw-sub{font-size:11px;color:#888780;display:block;margin-top:2px;}
+
+/* ===== セクションパネル ===== */
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+.section-intro{font-size:13px;color:#888780;text-align:center;margin-bottom:1.5rem;line-height:1.7;}
+
+/* ===== 感覚別フィルター ===== */
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:1.25rem;}
+.filter-btn{font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid #e0ddd8;background:#fff;color:#888780;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.filter-btn.active{background:#f5f0ff;color:#534AB7;border-color:#AFA9EC;}
+.count-bar{font-size:11px;color:#b4b2a9;text-align:right;margin-bottom:0.5rem;}
+
+/* ===== 困りごとタブ ===== */
+.trouble-tabs{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.trouble-btn{display:flex;align-items:center;gap:10px;width:100%;padding:0.7rem 1rem;border-radius:12px;border:0.5px solid #e0ddd8;background:#fff;cursor:pointer;text-align:left;transition:all 0.15s;}
+.trouble-btn.active{background:#f8f6ff;border-color:#AFA9EC;}
+.t-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.t-label{font-size:13px;font-weight:500;color:#2c2a28;flex:1;}
+.t-sub{font-size:11px;color:#888780;}
+.t-count{font-size:11px;color:#b4b2a9;flex-shrink:0;}
+.trouble-desc{font-size:12px;color:#888780;line-height:1.7;margin-bottom:1rem;padding:0.75rem 1rem;background:#fafaf8;border-radius:10px;border-left:3px solid #D4537E;}
+
+/* ===== カード共通 ===== */
+.cards{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem;}
+.card{background:#fff;border:0.5px solid #e0ddd8;border-radius:14px;padding:0.9rem 1rem;cursor:pointer;transition:border-color 0.15s;}
+.card:hover{border-color:#b4b2a9;}
+.card-top{display:flex;align-items:flex-start;gap:10px;}
+.card-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.card-main{flex:1;min-width:0;}
+.card-name{font-size:14px;font-weight:500;color:#2c2a28;line-height:1.35;margin-bottom:3px;}
+.card-sub{font-size:12px;color:#888780;line-height:1.45;}
+.tags-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;align-items:center;}
+.tag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:12px;}
+.badge-home{font-size:10px;font-weight:500;padding:2px 8px;border-radius:12px;background:#FAEEDA;color:#854F0B;}
+.expand-btn{width:24px;height:24px;border-radius:50%;background:#f5f3f0;border:0.5px solid #e0ddd8;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#888780;font-size:15px;font-weight:400;line-height:1;transition:transform 0.2s;}
+.card-detail{display:none;font-size:12px;color:#5f5e5a;line-height:1.75;margin-top:10px;padding-top:10px;border-top:0.5px solid #f0ede8;}
+.shop-link{display:inline-block;margin-top:9px;font-size:11px;color:#185FA5;text-decoration:none;border:0.5px solid #B5D4F4;border-radius:12px;padding:4px 12px;}
+.shop-link:hover{background:#E6F1FB;}
+.card.open .card-detail{display:block;}
+.card.open .expand-btn{transform:rotate(45deg);}
+
+/* ===== フッター ===== */
+.page-footer{margin-top:2.5rem;padding-top:1.5rem;border-top:0.5px solid #e0ddd8;}
+.footer-note{font-size:11px;color:#b4b2a9;line-height:1.8;text-align:center;}
+.footer-note a{color:#b4b2a9;text-decoration:underline;}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;margin-top:0.75rem;font-size:10px;color:#888780;background:#f5f3f0;border-radius:20px;padding:4px 12px;}
+
+/* ===== 注意書き ===== */
+.caution-box{margin-top:1rem;background:#fff8fa;border-radius:10px;padding:0.75rem 1rem;font-size:11px;color:#72243E;line-height:1.7;border-left:3px solid #D4537E;}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="header-accent"></div>
+    <h1>感覚統合グッズ一覧</h1>
+    <p>お子さんの特性に合ったグッズを探せます<br>2つの検索方法をご用意しています</p>
+  </div>
+
+  <div class="section-switcher">
+    <button class="switch-btn active" onclick="switchSection('sense')">
+      <span class="sw-icon">🔍</span>
+      <span class="sw-label">感覚から探す</span>
+      <span class="sw-sub">触覚・固有覚・前庭覚…</span>
+    </button>
+    <button class="switch-btn" onclick="switchSection('trouble')">
+      <span class="sw-icon">💭</span>
+      <span class="sw-label">困りごとから探す</span>
+      <span class="sw-sub">落ち着かない・敏感…</span>
+    </button>
+  </div>
+
+  <!-- ===== 感覚別パネル ===== -->
+  <div class="section-panel active" id="panel-sense">
+    <p class="section-intro">育てたい感覚のタブを選んでください<br>タップするとグッズの詳細が開きます　🏠 は家庭でも取り入れやすいグッズです</p>
+    <div class="filter-row" id="senseFilterRow"></div>
+    <div class="count-bar" id="senseCountBar"></div>
+    <div class="cards" id="senseCards"></div>
+    <div class="caution-box">グッズはお子さんの感覚特性（過敏・鈍麻）に合わせて選ぶことが大切です。導入前に作業療法士や支援者へご相談いただくことをおすすめします。</div>
+  </div>
+
+  <!-- ===== 困りごと別パネル ===== -->
+  <div class="section-panel" id="panel-trouble">
+    <p class="section-intro">気になる様子を選んでください<br>カードをタップすると詳しい情報が開きます</p>
+    <div class="trouble-tabs" id="troubleTabs"></div>
+    <div class="trouble-desc" id="troubleDesc"></div>
+    <div class="cards" id="troubleCards"></div>
+    <div class="caution-box">グッズはお子さんの感覚特性（過敏・鈍麻）に合わせて選ぶことが大切です。導入前に作業療法士や支援者へご相談いただくことをおすすめします。</div>
+  </div>
+
+  <!-- ===== フッター ===== -->
+  <div class="page-footer">
+    <p class="footer-note">
+      このページは、世界中の研究者・作業療法士・実践者・情報公開者の知見に敬意と感謝を込めて作成しています。<br>
+      情報はAIを活用して収集・整理し、定期的に内容を更新しています。<br>
+      グッズの効果には個人差があります。ご利用はご自身の判断と責任のもとでお願いします。
+    </p>
+    <div style="text-align:center;">
+      <span class="ai-badge">✦ AI活用コンテンツ ｜ 定期更新中</span>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+// ============================================================
+//  データ定義
+// ============================================================
+
+// --- 感覚別データ ---
+const SENSE_SECTIONS = [
+  { key:"触覚", label:"触覚", note:"皮膚で感じる感覚", dot:"#D4537E",
+    goods:[
+      { name:"スクイーズボール / センサリーボール", sub:"さまざまな素材・質感のボールを握る・転がす", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"○", home:true, detail:"柔らかい素材を握ることで触覚を直接刺激し、力の入れ加減（固有覚）の練習にもなります。不安やイライラを落ち着かせるカームダウン効果も期待でき、持ち運べる手軽さが人気です。", link:null },
+      { name:"センサリービン（感覚瓶）", sub:"液体・ラメ・ビーズが入った透明ボトル", tags:["触覚","視覚"], tc:["#F4C0D1|#72243E","#B5D4F4|#0C447C"], ib:"#FBEAF0", ic:"#D4537E", it:"◇", home:true, detail:"振ったり傾けたりすると素材がゆっくり動き、過敏になりがちな感覚を穏やかに整えます。怒りや不安のクールダウンアイテムとして療育現場で広く活用され、100均素材で自作もできます。", link:null },
+      { name:"感覚マット / テクスチャーパネル", sub:"凸凹・ざらざら・ふわふわなど多様な質感", tags:["触覚"], tc:["#F4C0D1|#72243E"], ib:"#FBEAF0", ic:"#D4537E", it:"▦", home:false, detail:"足の裏や手のひらで異なる質感を体験することで、触覚の識別機能を育てます。触覚過敏の脱感作にも、鈍麻タイプの刺激探求にも使いやすいアイテムです。", link:null },
+      { name:"粘土・スライム・感触あそびセット", sub:"こねる・のばす・つぶす手触りあそび", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"✦", home:true, detail:"さまざまな質感の素材を操作することで触覚の識別と固有覚（力の調整）を同時に育てます。小麦粉・片栗粉・こんにゃくなど身近な食材でも代用でき、家庭でも気軽に取り入れられます。", link:null },
+      { name:"素材あそび（砂場・水・泥んこ）", sub:"屋外でからだ全体を使う触覚刺激", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"≈", home:true, detail:"手・足全体からの刺激量が多く、感覚過敏の脱感作と鈍麻タイプの刺激探求の両面に対応できます。専門道具不要で始められる、最も自然な触覚あそびです。", link:null },
+      { name:"感覚探索ボックス（目隠しボックス）", sub:"箱の中に手だけ入れて素材を触り当てる", tags:["触覚"], tc:["#F4C0D1|#72243E"], ib:"#FBEAF0", ic:"#D4537E", it:"□", home:true, detail:"視覚なしに触覚だけで素材を識別する活動です。ダンボール箱に穴をあけるだけで自作でき、「触覚の識別力」を高めるツールとして療育現場でも定番です。", link:null },
+      { name:"ボールプール（家庭用）", sub:"全身でボールに潜って触覚・固有覚を刺激", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"●", home:true, detail:"全身の皮膚にボールの触覚刺激が届き、特に背中の固有覚・身体認識を促します。折りたたみプール＋カラーボールで家庭でも再現でき、自分の体の存在を感じさせる効果が療育現場で実証されています。", link:null },
+      { name:"加重ブランケット（ウェイトブランケット）", sub:"適度な重みで全身を優しく包む布団", tags:["触覚","固有覚","内受容"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"▭", home:true, detail:"体重の約10%の重さで深部触圧覚を刺激し、副交感神経を活性化。ASD・ADHDの子どもの睡眠改善・不安軽減に欧米の研究で効果が報告されています。カームダウンコーナーにも最適です。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%96%E3%83%A9%E3%83%B3%E3%82%B1%E3%83%83%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82" },
+      { name:"チューイー（噛むおもちゃ）", sub:"シリコン・ゴム製の安全な口腔刺激グッズ", tags:["触覚","内受容"], tc:["#F4C0D1|#72243E","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"◉", home:true, detail:"口腔内の感覚を安全に満たし、不安やストレスを和らげます。口への刺激探求行動の置き換えとして療育現場で推奨されており、学校・外出先でも目立たず使えます。", link:null },
+      { name:"布ハンモック / シーツ揺れあそび", sub:"布で包んでゆったり揺らす、包まれ感あそび", tags:["触覚","前庭覚"], tc:["#F4C0D1|#72243E","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"◜", home:true, detail:"全身を布で包まれながら揺れることで、触覚の安心刺激と前庭覚を同時に育てます。大人が一緒に行うため安全性が高く、家でも大きなバスタオルやシーツで代用できます。", link:null }
+    ]
+  },
+  { key:"固有覚", label:"固有覚", note:"筋肉・関節で感じる力加減・体位", dot:"#639922",
+    goods:[
+      { name:"ウェイテッドベスト（加重ベスト）", sub:"肩・体幹に重さをかけるベスト型グッズ", tags:["固有覚","触覚"], tc:["#C0DD97|#3B6D11","#F4C0D1|#72243E"], ib:"#EAF3DE", ic:"#639922", it:"▲", home:false, detail:"体幹への持続的な深部圧が固有受容覚を刺激し、落ち着きや集中力の向上を助けます。授業中・作業中に着用することで座位保持や衝動性の軽減にも効果が期待されています。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%99%E3%82%B9%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82+%E7%99%BA%E9%81%94%E9%9A%9C%E5%AE%B3" },
+      { name:"トランポリン（家庭用小型）", sub:"跳ねる動作で筋肉・関節に強い刺激", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"⤒", home:true, detail:"ジャンプで固有受容覚と前庭覚を同時に強く刺激します。多動傾向の子どもの「動きたい欲求」を満たし、その後の集中力向上にも有効。家庭用は安全バーつきのものを選ぶと安心です。", link:"https://www.amazon.co.jp/s?k=%E3%83%88%E3%83%A9%E3%83%B3%E3%83%9D%E3%83%AA%E3%83%B3+%E5%AE%B6%E5%BA%AD%E7%94%A8+%E5%B0%8F%E5%9E%8B+%E5%AE%89%E5%85%A8%E3%83%90%E3%83%BC" },
+      { name:"バランスボード", sub:"乗ってゆらゆら、体幹・バランス強化", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"◡", home:true, detail:"前後左右に傾く動作が前庭感覚と固有受容覚を刺激します。姿勢の安定や集中力向上に効果的で、活動前のウォームアップとしても推奨されています。", link:null },
+      { name:"バランスストーン", sub:"大小の石型ブロックを渡り歩く遊具", tags:["固有覚","前庭覚","触覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041","#F4C0D1|#72243E"], ib:"#EAF3DE", ic:"#639922", it:"◌", home:true, detail:"不規則な形のブロックを渡ることで足裏触覚・前庭覚・固有覚を同時に刺激します。ルールを決めて遊ぶことで社会性トレーニングにもつながります。", link:null },
+      { name:"缶ぽっくり（スティル）", sub:"紐を持って歩くバランス遊具", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"↑", home:true, detail:"足裏の固有覚・平衡感覚を鍛えながら、体幹強化と姿勢保持力を育てます。昔から療育現場で活用されてきた定番遊具で、達成感が自己効力感を高めます。", link:null }
+    ]
+  },
+  { key:"前庭覚", label:"前庭覚", note:"傾き・スピード・重力を感じる", dot:"#1D9E75",
+    goods:[
+      { name:"ブランコ / 室内吊り遊具", sub:"ゆらゆら揺れで平衡感覚を育てる", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"◜", home:false, detail:"左右・前後の揺れが前庭器官を穏やかに刺激し、姿勢保持・眼球運動・覚醒調整に働きかけます。過敏な子は揺れ幅を小さくして導入します。室内用の天井吊りタイプも専門店で販売されています。", link:null },
+      { name:"バランスクッション / ディスク", sub:"椅子の上に敷いて使う着座型バランスグッズ", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"◔", home:true, detail:"着座中の微妙な揺れが前庭覚と固有受容覚を刺激し、姿勢の安定・集中力の持続をサポートします。学校の椅子にも導入しやすく、担任教師との連携で活用される事例も多数あります。", link:"https://www.amazon.co.jp/s?k=%E3%83%90%E3%83%A9%E3%83%B3%E3%82%B9%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+%E5%AD%90%E3%81%A9%E3%82%82+%E6%A4%85%E5%AD%90" },
+      { name:"乗用玩具 / ロッキングホース", sub:"またがって揺れる前後・上下の動き", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"↔", home:true, detail:"自分でコントロールしながら揺れる動作が前庭覚を安全に刺激します。自分のペースで動きをコントロールできるため、前庭覚過敏な子にも取り入れやすい遊具です。", link:null },
+      { name:"平均台 / テープ一本橋", sub:"一本のラインの上を歩くバランス活動", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"—", home:true, detail:"床にテープを貼るだけで始められる一本橋は、前庭覚と固有覚を育てる最も手軽な活動の一つです。高さがないため安全性が高く、家庭・療育施設いずれでも定番として使われています。", link:null }
+    ]
+  },
+  { key:"視覚", label:"視覚", note:"目で見て情報を処理する感覚", dot:"#378ADD",
+    goods:[
+      { name:"タイムタイマー", sub:"残り時間が色の減少で見えるアナログ時計", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"◑", home:true, detail:"時間の概念が苦手な子に「あと何分」を直感的に伝えます。見通しが立つことで不安が軽減し、活動の切り替えがスムーズになります。療育・特別支援教育で世界的に普及している定番ツールです。", link:"https://www.amazon.co.jp/s?k=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC+%E8%A6%96%E8%A6%9A%E6%94%AF%E6%8F%B4" },
+      { name:"視覚スケジュールボード / 絵カード", sub:"写真・絵カードで1日の流れを表示", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"▦", home:true, detail:"活動の見通しを視覚で示すことで、切り替えや次の行動への不安を大幅に軽減します。ASD支援でエビデンスが積み上がっているPECS・TEACCHのアプローチと連動しやすいツールです。", link:null },
+      { name:"カラーオーバーレイシート / 遮光サングラス", sub:"光・色彩の刺激を調整する視覚フィルター", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"◒", home:true, detail:"蛍光灯などの光が眩しく感じる視覚過敏の子に有効です。カラーシートは文字の見え方を改善する場合があり、読み書き困難の軽減にも活用されています。", link:null }
+    ]
+  },
+  { key:"聴覚", label:"聴覚", note:"音・リズム・言語を処理する感覚", dot:"#BA7517",
+    goods:[
+      { name:"イヤーマフ（防音イヤーマフ）", sub:"不快な音をカットして落ち着きをサポート", tags:["聴覚"], tc:["#FAC775|#854F0B"], ib:"#FAEEDA", ic:"#BA7517", it:"◉", home:true, detail:"聴覚過敏による騒音ストレスを軽減します。運動会・避難訓練・人混みなど特定の場面で活躍し、二次的なパニックを予防します。子ども用サイズも豊富に揃っています。", link:"https://www.amazon.co.jp/s?k=%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%9E%E3%83%95+%E5%AD%90%E3%81%A9%E3%82%82+%E8%81%B4%E8%A6%9A%E9%81%8E%E6%95%8F" },
+      { name:"ノイズキャンセリングヘッドフォン", sub:"電気的に周囲の雑音を低減する機器", tags:["聴覚"], tc:["#FAC775|#854F0B"], ib:"#FAEEDA", ic:"#BA7517", it:"◎", home:true, detail:"電気的にノイズを除去し集中環境を作ります。学習・宿題時の集中力向上にも有効です。イヤーマフより目立ちにくいため、外出時にも使いやすい点が特長です。", link:null },
+      { name:"ミュージカルエッグ / マラカスおもちゃ", sub:"リズムに合わせて音を鳴らす楽器玩具", tags:["聴覚","触覚","固有覚"], tc:["#FAC775|#854F0B","#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FAEEDA", ic:"#BA7517", it:"♪", home:true, detail:"リズムを感じて体を動かすことで聴覚・触覚・固有受容覚を同時に刺激します。音の強弱やリズムの感知能力が育ち、感覚統合の促進に療育現場でも広く活用されています。", link:null },
+      { name:"ホワイトノイズマシン", sub:"一定の背景音で環境ノイズを緩和", tags:["聴覚","内受容"], tc:["#FAC775|#854F0B","#9FE1CB|#085041"], ib:"#FAEEDA", ic:"#BA7517", it:"〜", home:true, detail:"安定した背景音が突発的な騒音刺激を目立ちにくくし、落ち着いた環境を作ります。睡眠環境の改善にも効果的で、感覚過敏な子の就寝前ルーティンにおすすめです。", link:null }
+    ]
+  },
+  { key:"嗅覚味覚", label:"嗅覚・味覚", note:"においと味を感じる化学感覚", dot:"#E24B4A",
+    goods:[
+      { name:"アロマディフューザー / 香りカード", sub:"心地よい香りで気分を整える嗅覚刺激", tags:["嗅覚味覚","内受容"], tc:["#F7C1C1|#791F1F","#9FE1CB|#085041"], ib:"#FCEBEB", ic:"#E24B4A", it:"✿", home:true, detail:"ラベンダーなどの香りがリラックスを促し、登校前・寝る前のルーティンとして活用されています。嗅覚探求タイプの子の感覚満足にも、嗅覚過敏の環境整備にも有効です。", link:null },
+      { name:"仕切り食器（仕切りプレート）", sub:"食材の混合を防ぎ食事不安を軽減する食器", tags:["嗅覚味覚","触覚"], tc:["#F7C1C1|#791F1F","#F4C0D1|#72243E"], ib:"#FCEBEB", ic:"#E24B4A", it:"◇", home:true, detail:"食材同士が混ざることへの強い抵抗感を持つ子に有効です。食事場面の不安を大きく軽減し、食事への参加を促します。", link:null }
+    ]
+  },
+  { key:"内受容", label:"内受容覚", note:"空腹・体温・心拍など体の内側を感じる", dot:"#0F6E56",
+    goods:[
+      { name:"感情・体調カード（気持ちの温度計）", sub:"体の感覚と感情を言葉にするツール", tags:["内受容","視覚"], tc:["#9FE1CB|#04342C","#B5D4F4|#0C447C"], ib:"#E1F5EE", ic:"#0F6E56", it:"♡", home:true, detail:"「おなかがきゅっとする」「むねがドキドキする」など身体内部の感覚に気づいて言葉にする力を育てます。セルフ調整スキルの基礎となる内受容覚のトレーニングに有効です。", link:null },
+      { name:"クールダウンテント / カームコーナーグッズ", sub:"感覚過負荷を逃がせる「安全な場所」", tags:["内受容","触覚","視覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#B5D4F4|#0C447C"], ib:"#E1F5EE", ic:"#0F6E56", it:"⌂", home:true, detail:"感覚刺激が過負荷になったときに一時避難できる安心空間です。テント・衝立などで視覚・聴覚刺激をカットし、自己調整のコーナーとして療育・家庭で活用されています。", link:"https://www.amazon.co.jp/s?k=%E3%83%86%E3%83%B3%E3%83%88+%E5%AE%A4%E5%86%85+%E5%AD%90%E3%81%A9%E3%82%82+%E3%82%AB%E3%83%BC%E3%83%A0%E3%83%80%E3%82%A6%E3%83%B3" },
+      { name:"フィジェットキューブ / フィジェットトイ", sub:"手先で感覚を調整する小型グッズ", tags:["内受容","触覚","固有覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#0F6E56", it:"▣", home:true, detail:"不安・緊張・興奮状態のとき手先に感覚入力を与えることで自己調整を助けます。授業中・待ち時間などの覚醒調整ツールとして療育現場で推奨されており、持ち運びも簡単です。", link:"https://www.amazon.co.jp/s?k=%E3%83%95%E3%82%A3%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%E3%82%AD%E3%83%A5%E3%83%BC%E3%83%96+%E5%AD%90%E3%81%A9%E3%82%82" }
+    ]
+  }
+];
+
+// --- 困りごと別データ ---
+const TROUBLE_CATS = [
+  { id:"move", dot:"#639922", label:"落ち着かない・動き回る", sub:"手いじり、椅子をゆらす、じっとできない", desc:"感覚刺激を求めて動き続けてしまう状態です。「動く」欲求を安全に満たすグッズで、落ち着きや集中につなげます。",
+    goods:[
+      { name:"トランポリン（家庭用小型）", sub:"跳ねることで固有覚・前庭覚を強く刺激", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"⤒", home:true, detail:"ジャンプで筋肉・関節への強い刺激を一気に満たし、その後の集中力向上に有効です。「動き回りたい」衝動の発散と切り替えのスイッチとして使われます。家庭用は安全バーつきのものを選ぶと安心です。", link:"https://www.amazon.co.jp/s?k=%E3%83%88%E3%83%A9%E3%83%B3%E3%83%9D%E3%83%AA%E3%83%B3+%E5%AE%B6%E5%BA%AD%E7%94%A8+%E5%B0%8F%E5%9E%8B+%E5%AE%89%E5%85%A8%E3%83%90%E3%83%BC" },
+      { name:"バランスクッション / ディスク", sub:"椅子の上に敷いて使う着座型バランスグッズ", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"◔", home:true, detail:"「椅子をゆらしてしまう」子の感覚欲求を、安全・静かに満たします。微妙な揺れが前庭覚と固有受容覚を刺激し続けるため、離席衝動が軽減されることがあります。学校の椅子にも使えます。", link:"https://www.amazon.co.jp/s?k=%E3%83%90%E3%83%A9%E3%83%B3%E3%82%B9%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+%E5%AD%90%E3%81%A9%E3%82%82+%E6%A4%85%E5%AD%90" },
+      { name:"ウェイテッドベスト（加重ベスト）", sub:"肩・体幹に重さをかけて落ち着きをサポート", tags:["固有覚","触覚"], tc:["#C0DD97|#3B6D11","#F4C0D1|#72243E"], ib:"#EAF3DE", ic:"#639922", it:"▲", home:false, detail:"体幹への持続的な深部圧が固有受容覚を刺激し、多動や衝動性を和らげます。授業中・作業中に着用することで座位保持が改善するケースが多く報告されています。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%99%E3%82%B9%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82+%E7%99%BA%E9%81%94%E9%9A%9C%E5%AE%B3" },
+      { name:"フィジェットキューブ / フィジェットトイ", sub:"手先で感覚を調整する小型グッズ", tags:["内受容","触覚","固有覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#0F6E56", it:"▣", home:true, detail:"「手いじり」「ペン回し」などの感覚探求行動を、目立たないかたちで代替します。授業中・待ち時間に手先に適度な刺激を与えることで、落ち着きと集中の両立を助けます。", link:"https://www.amazon.co.jp/s?k=%E3%83%95%E3%82%A3%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%E3%82%AD%E3%83%A5%E3%83%BC%E3%83%96+%E5%AD%90%E3%81%A9%E3%82%82" },
+      { name:"加重ブランケット（ウェイトブランケット）", sub:"適度な重みで全身を優しく包む布団", tags:["触覚","固有覚","内受容"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"▭", home:true, detail:"寝る前の過覚醒・落ち着かない状態を和らげます。体重の約10%の重さで深部触圧覚を刺激し、副交感神経を活性化。就寝時だけでなく、クールダウンタイムにも活用できます。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%96%E3%83%A9%E3%83%B3%E3%82%B1%E3%83%83%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82" }
+    ]
+  },
+  { id:"sensitive", dot:"#378ADD", label:"感覚に敏感すぎる", sub:"音が怖い、触られるのが嫌、光がまぶしい", desc:"感覚刺激を過剰に受け取ってしまう「感覚過敏」の状態です。刺激を「減らす」「遮る」グッズが中心になります。",
+    goods:[
+      { name:"イヤーマフ（防音イヤーマフ）", sub:"不快な音をカットして落ち着きをサポート", tags:["聴覚"], tc:["#FAC775|#854F0B"], ib:"#FAEEDA", ic:"#BA7517", it:"◉", home:true, detail:"「音が怖い・うるさい」聴覚過敏に直接働きかけます。運動会・避難訓練・人混みなど特定の場面で、パニックを予防するお守りとして活用されています。子ども用サイズも豊富です。", link:"https://www.amazon.co.jp/s?k=%E3%82%A4%E3%83%A4%E3%83%BC%E3%83%9E%E3%83%95+%E5%AD%90%E3%81%A9%E3%82%82+%E8%81%B4%E8%A6%9A%E9%81%8E%E6%95%8F" },
+      { name:"ノイズキャンセリングヘッドフォン", sub:"電気的に周囲の雑音を低減する機器", tags:["聴覚"], tc:["#FAC775|#854F0B"], ib:"#FAEEDA", ic:"#BA7517", it:"◎", home:true, detail:"電気的にノイズを除去するため、イヤーマフより目立ちにくく外出時にも自然に使えます。学習・宿題時の集中力向上にも有効です。", link:null },
+      { name:"カラーオーバーレイシート / 遮光サングラス", sub:"光・色彩の刺激を調整する視覚フィルター", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"◒", home:true, detail:"蛍光灯などの光が眩しく感じる視覚過敏に有効です。カラーシートは文字の見え方を改善する場合もあり、読み書き困難の軽減にも活用されています。", link:null },
+      { name:"加重ブランケット（ウェイトブランケット）", sub:"全身を優しく包んで感覚の過負荷を和らげる", tags:["触覚","固有覚","内受容"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"▭", home:true, detail:"身体を覆う深部圧が「外からの刺激が気にならなくなる」効果を生みます。触覚過敏な子が逆に好む「ぎゅっと包まれる」感覚で、落ち着きを取り戻す手助けになります。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%96%E3%83%A9%E3%83%B3%E3%82%B1%E3%83%83%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82" },
+      { name:"クールダウンテント / カームコーナーグッズ", sub:"感覚過負荷を逃がせる「安全な場所」", tags:["内受容","触覚","視覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#B5D4F4|#0C447C"], ib:"#E1F5EE", ic:"#0F6E56", it:"⌂", home:true, detail:"「刺激が多すぎてつらい」ときに一時避難できる安心空間です。視覚・聴覚刺激を遮断し、自分で気持ちを立て直す力を育てます。家庭でも一角に設置するだけで効果があります。", link:"https://www.amazon.co.jp/s?k=%E3%83%86%E3%83%B3%E3%83%88+%E5%AE%A4%E5%86%85+%E5%AD%90%E3%81%A9%E3%82%82+%E3%82%AB%E3%83%BC%E3%83%A0%E3%83%80%E3%82%A6%E3%83%B3" },
+      { name:"ホワイトノイズマシン", sub:"一定の背景音で突発的なノイズを緩和", tags:["聴覚","内受容"], tc:["#FAC775|#854F0B","#9FE1CB|#085041"], ib:"#FAEEDA", ic:"#BA7517", it:"〜", home:true, detail:"安定した背景音が突発的な騒音を目立ちにくくします。就寝前の過覚醒・睡眠困難にも効果的で、感覚過敏な子の夜のルーティンにおすすめです。", link:null }
+    ]
+  },
+  { id:"seek", dot:"#D4537E", label:"感覚を求めすぎる", sub:"鉛筆を噛む、ものを投げる、ぐるぐる回る", desc:"感覚刺激が足りなくて「もっと強い刺激を求めてしまう」状態（感覚鈍麻）です。安全に「満たす」グッズが中心です。",
+    goods:[
+      { name:"チューイー（噛むおもちゃ）", sub:"シリコン・ゴム製の安全な口腔刺激グッズ", tags:["触覚","内受容"], tc:["#F4C0D1|#72243E","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"◉", home:true, detail:"「鉛筆を噛む」「えりを噛む」などの口腔刺激探求を、安全なかたちで代替します。シリコン素材で安全性が高く、学校でも目立ちにくいネックレス型もあります。", link:null },
+      { name:"スクイーズボール / センサリーボール", sub:"さまざまな素材・質感のボールを握る・つぶす", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"○", home:true, detail:"手に強い触覚・固有覚刺激を与えることで、「物を投げる」「ぶつかりに行く」などの激しい感覚探求行動を穏やかに代替します。", link:null },
+      { name:"ボールプール（家庭用）", sub:"全身でボールに潜って触覚・固有覚を満たす", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"●", home:true, detail:"全身の皮膚への触覚刺激と体全体の固有覚入力を一度に大量に満たせます。「刺激探求がひどくて困る」場合の定期的な感覚充電として有効で、前後の落ち着きが改善するケースがあります。", link:null },
+      { name:"トランポリン（家庭用小型）", sub:"跳ねることで強い固有覚・前庭覚を安全に満たす", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"⤒", home:true, detail:"「回り続ける」「高いところから飛び降りる」などの前庭覚探求を、安全に代替できます。ジャンプ後に落ち着きが出る子が多く、活動前の準備として使われることも多いです。", link:"https://www.amazon.co.jp/s?k=%E3%83%88%E3%83%A9%E3%83%B3%E3%83%9D%E3%83%AA%E3%83%B3+%E5%AE%B6%E5%BA%AD%E7%94%A8+%E5%B0%8F%E5%9E%8B+%E5%AE%89%E5%85%A8%E3%83%90%E3%83%BC" },
+      { name:"布ハンモック / シーツ揺れあそび", sub:"布で包んでゆったり揺らす、包まれ感あそび", tags:["触覚","前庭覚"], tc:["#F4C0D1|#72243E","#9FE1CB|#085041"], ib:"#FBEAF0", ic:"#D4537E", it:"◜", home:true, detail:"「くるくる回りたい」前庭覚探求を穏やかに代替します。大人と一緒に行うため安全性が高く、家でもバスタオルやシーツで代用できます。包まれる感覚が安心感も同時に与えます。", link:null }
+    ]
+  },
+  { id:"emotion", dot:"#7F77DD", label:"気持ちが崩れやすい", sub:"パニック、かんしゃく、切り替えが苦手", desc:"感覚の過負荷や見通しの立てにくさから、気持ちが急激に崩れてしまう状態です。「予測できる」「逃げ場がある」環境をつくるグッズが助けになります。",
+    goods:[
+      { name:"タイムタイマー", sub:"残り時間が色の減少で見えるアナログ時計", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"◑", home:true, detail:"「もうすぐ終わり」「あと何分」が視覚でわかることで、切り替えへの不安と抵抗感が大きく軽減します。「急に終わる」ことへのパニックを予防する定番ツールです。", link:"https://www.amazon.co.jp/s?k=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC+%E8%A6%96%E8%A6%9A%E6%94%AF%E6%8F%B4" },
+      { name:"視覚スケジュールボード / 絵カード", sub:"写真・絵カードで1日の流れを表示", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"▦", home:true, detail:"「次に何が起こるかわからない」不安が、パニックやかんしゃくの大きな原因になります。1日の見通しを視覚で示すだけで、切り替えがスムーズになるケースが多く報告されています。", link:null },
+      { name:"センサリービン（感覚瓶）", sub:"振るとゆっくり動く中身を見てクールダウン", tags:["触覚","視覚"], tc:["#F4C0D1|#72243E","#B5D4F4|#0C447C"], ib:"#FBEAF0", ic:"#D4537E", it:"◇", home:true, detail:"怒りや不安のピーク時に渡すと、ゆっくり動く中身を目で追うことで呼吸が落ち着いてきます。「気持ちのメーターが下がるまで待つ」視覚的なツールとして、療育現場で広く使われています。", link:null },
+      { name:"クールダウンテント / カームコーナーグッズ", sub:"感覚過負荷を逃がせる「安全な場所」", tags:["内受容","触覚","視覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#B5D4F4|#0C447C"], ib:"#E1F5EE", ic:"#0F6E56", it:"⌂", home:true, detail:"「崩れそうなとき自分から入れる場所」があるだけで、パニックの頻度が下がります。逃げることへの罰ではなく、自己調整のスキルを育てる「安全地帯」として設置します。", link:"https://www.amazon.co.jp/s?k=%E3%83%86%E3%83%B3%E3%83%88+%E5%AE%A4%E5%86%85+%E5%AD%90%E3%81%A9%E3%82%82+%E3%82%AB%E3%83%BC%E3%83%A0%E3%83%80%E3%82%A6%E3%83%B3" },
+      { name:"感情・体調カード（気持ちの温度計）", sub:"体の感覚と感情を言葉にするツール", tags:["内受容","視覚"], tc:["#9FE1CB|#04342C","#B5D4F4|#0C447C"], ib:"#E1F5EE", ic:"#0F6E56", it:"♡", home:true, detail:"「崩れる前に気づく」力を育てます。「むねがドキドキしてきた＝黄色サイン」と分かれば、自分から逃げ場に移動できるようになります。かんしゃくを減らす根本的なアプローチです。", link:null }
+    ]
+  },
+  { id:"motor", dot:"#BA7517", label:"身体の使い方が難しい", sub:"不器用、よく転ぶ、力加減が難しい", desc:"固有覚・前庭覚の未発達により、思い通りに身体を動かせない状態です。「使う」「感じる」を繰り返す遊具で育てます。",
+    goods:[
+      { name:"バランスボード", sub:"乗ってゆらゆら、体幹・バランス強化", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"◡", home:true, detail:"「よく転ぶ」「姿勢が保てない」子の体幹と平衡感覚を、遊びながら育てます。前後左右に傾く動作で固有受容覚と前庭覚を同時に刺激します。", link:null },
+      { name:"バランスストーン", sub:"大小の石型ブロックを渡り歩く遊具", tags:["固有覚","前庭覚","触覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041","#F4C0D1|#72243E"], ib:"#EAF3DE", ic:"#639922", it:"◌", home:true, detail:"「不規則な足場を渡る」ことで足裏の固有覚・前庭覚・触覚を同時に刺激します。「転びやすい」「足元が不安定」な子の足腰と注意力を楽しみながら育てられます。", link:null },
+      { name:"缶ぽっくり（スティル）", sub:"紐を持って歩くバランス遊具", tags:["固有覚","前庭覚"], tc:["#C0DD97|#3B6D11","#9FE1CB|#085041"], ib:"#EAF3DE", ic:"#639922", it:"↑", home:true, detail:"足裏の固有覚と平衡感覚を同時に鍛えます。達成感が自己効力感を高め、「できた」体験が次の挑戦意欲につながります。", link:null },
+      { name:"粘土・スライム・感触あそびセット", sub:"こねる・のばす・つぶす手触りあそび", tags:["触覚","固有覚"], tc:["#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#FBEAF0", ic:"#D4537E", it:"✦", home:true, detail:"「力加減が難しい」「手先が不器用」な子の指先の固有覚トレーニングになります。力を入れる・緩める動作の繰り返しが、鉛筆・はさみ・箸などの道具操作の基礎を育てます。", link:null },
+      { name:"平均台 / テープ一本橋", sub:"一本のラインの上を歩くバランス活動", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"—", home:true, detail:"床にテープを貼るだけで始められます。高さがないため安全性が高く、「まっすぐ歩けない」「ふらつく」子の前庭覚・固有覚トレーニングとして気軽に取り入れられます。", link:null }
+    ]
+  },
+  { id:"focus", dot:"#0F6E56", label:"集中が続かない", sub:"ぼんやりする、すぐ飽きる、疲れやすい", desc:"覚醒レベルが低い（低覚醒）か、逆に高すぎて安定しない状態です。「ちょうどよい覚醒」をつくるグッズが助けになります。",
+    goods:[
+      { name:"タイムタイマー", sub:"終わりが見えることで取り組む意欲を引き出す", tags:["視覚"], tc:["#B5D4F4|#0C447C"], ib:"#E6F1FB", ic:"#378ADD", it:"◑", home:true, detail:"「いつ終わるかわからない」ことが集中を妨げます。「あと〇分だけ」と視覚でわかることで、短時間集中のサイクルを作りやすくなります。", link:"https://www.amazon.co.jp/s?k=%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC+%E8%A6%96%E8%A6%9A%E6%94%AF%E6%8F%B4" },
+      { name:"バランスクッション / ディスク", sub:"着座中に微妙な揺れで覚醒を保つ", tags:["前庭覚","固有覚"], tc:["#9FE1CB|#085041","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#1D9E75", it:"◔", home:true, detail:"「ぼんやりしてしまう」低覚醒タイプに有効です。椅子の上の微妙な揺れが脳への刺激を維持し、覚醒レベルを適度に保つ助けになります。", link:"https://www.amazon.co.jp/s?k=%E3%83%90%E3%83%A9%E3%83%B3%E3%82%B9%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3+%E5%AD%90%E3%81%A9%E3%82%82+%E6%A4%85%E5%AD%90" },
+      { name:"フィジェットキューブ / フィジェットトイ", sub:"手先を動かして覚醒を維持する小型グッズ", tags:["内受容","触覚","固有覚"], tc:["#9FE1CB|#04342C","#F4C0D1|#72243E","#C0DD97|#3B6D11"], ib:"#E1F5EE", ic:"#0F6E56", it:"▣", home:true, detail:"手先への小さな刺激が脳の覚醒を維持します。「授業中ぼーっとしてしまう」子が手元を動かすことで聴覚情報の処理が改善するケースがあります。", link:"https://www.amazon.co.jp/s?k=%E3%83%95%E3%82%A3%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%E3%82%AD%E3%83%A5%E3%83%BC%E3%83%96+%E5%AD%90%E3%81%A9%E3%82%82" },
+      { name:"ウェイテッドベスト（加重ベスト）", sub:"体幹への深部圧で覚醒と集中をサポート", tags:["固有覚","触覚"], tc:["#C0DD97|#3B6D11","#F4C0D1|#72243E"], ib:"#EAF3DE", ic:"#639922", it:"▲", home:false, detail:"体幹への持続的な固有覚刺激が、脳の覚醒レベルを適度に高めます。「疲れやすい」「すぐへたってしまう」低覚醒タイプの子の姿勢保持と集中に有効です。", link:"https://www.amazon.co.jp/s?k=%E5%8A%A0%E9%87%8D%E3%83%99%E3%82%B9%E3%83%88+%E5%AD%90%E3%81%A9%E3%82%82" },
+      { name:"ホワイトノイズマシン", sub:"一定の背景音で集中できる環境をつくる", tags:["聴覚","内受容"], tc:["#FAC775|#854F0B","#9FE1CB|#085041"], ib:"#FAEEDA", ic:"#BA7517", it:"〜", home:true, detail:"周囲の雑音が気になって集中できない子に、安定した背景音で「集中できる音環境」を作ります。宿題・読書の時間に使うと持続時間が伸びることがあります。", link:null }
+    ]
+  }
+];
+
+// ============================================================
+//  共通カードビルダー
+// ============================================================
+function buildCard(g) {
+  const tagsHtml = g.tags.map((t,i)=>{const[bg,tx]=g.tc[i].split('|');return`<span class="tag" style="background:${bg};color:${tx};">${t}</span>`;}).join('');
+  const hb = g.home ? `<span class="badge-home">🏠 家庭向け</span>` : '';
+  const lk = g.link ? `<a class="shop-link" href="${g.link}" target="_blank">Amazonで探す →</a>` : '';
+  return `<div class="card" onclick="this.classList.toggle('open')">
+    <div class="card-top">
+      <div class="card-icon" style="background:${g.ib};color:${g.ic};">${g.it}</div>
+      <div class="card-main">
+        <div class="card-name">${g.name}</div>
+        <div class="card-sub">${g.sub}</div>
+        <div class="tags-row">${tagsHtml}${hb}</div>
+      </div>
+      <div class="expand-btn">+</div>
+    </div>
+    <div class="card-detail">${g.detail}${lk}</div>
+  </div>`;
+}
+
+// ============================================================
+//  セクション切り替え
+// ============================================================
+function switchSection(id) {
+  document.querySelectorAll('.section-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.switch-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ============================================================
+//  感覚別：フィルター
+// ============================================================
+let senseFilter = 'all';
+
+function initSense() {
+  const fr = document.getElementById('senseFilterRow');
+  const filters = ['all','触覚','固有覚','前庭覚','視覚','聴覚','嗅覚味覚','内受容','home'];
+  const labels  = ['すべて','触覚','固有覚','前庭覚','視覚','聴覚','嗅覚・味覚','内受容覚','🏠 家庭向け'];
+  fr.innerHTML = filters.map((f,i)=>`<button class="filter-btn${f==='all'?' active':''}" onclick="setSenseFilter('${f}',this)">${labels[i]}</button>`).join('');
+  renderSense();
+}
+
+function setSenseFilter(f, btn) {
+  senseFilter = f;
+  document.querySelectorAll('#senseFilterRow .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSense();
+}
+
+function renderSense() {
+  let all = [];
+  SENSE_SECTIONS.forEach(sec => {
+    const list = senseFilter==='all' ? sec.goods
+      : senseFilter==='home' ? sec.goods.filter(g=>g.home)
+      : sec.goods.filter(g=>g.tags.includes(senseFilter));
+    all = all.concat(list);
+  });
+  document.getElementById('senseCountBar').textContent = all.length + ' 件';
+  document.getElementById('senseCards').innerHTML = all.map(buildCard).join('');
+}
+
+// ============================================================
+//  困りごと別：タブ
+// ============================================================
+let troubleCurrent = TROUBLE_CATS[0].id;
+
+function initTrouble() {
+  renderTroubleTabs();
+  renderTroublePanel();
+}
+
+function renderTroubleTabs() {
+  document.getElementById('troubleTabs').innerHTML = TROUBLE_CATS.map(c=>`
+    <button class="trouble-btn${c.id===troubleCurrent?' active':''}" onclick="selectTrouble('${c.id}')">
+      <div class="t-dot" style="background:${c.dot};"></div>
+      <div style="flex:1;min-width:0;">
+        <div class="t-label">${c.label}</div>
+        <div class="t-sub">${c.sub}</div>
+      </div>
+      <div class="t-count">${c.goods.length}件</div>
+    </button>`).join('');
+}
+
+function selectTrouble(id) {
+  troubleCurrent = id;
+  renderTroubleTabs();
+  renderTroublePanel();
+  document.getElementById('troubleDesc').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderTroublePanel() {
+  const cat = TROUBLE_CATS.find(c=>c.id===troubleCurrent);
+  document.getElementById('troubleDesc').textContent = cat.desc;
+  document.getElementById('troubleCards').innerHTML = cat.goods.map(buildCard).join('');
+}
+
+// ============================================================
+//  初期化
+// ============================================================
+initSense();
+initTrouble();
+</script>
+</body>
+</html>

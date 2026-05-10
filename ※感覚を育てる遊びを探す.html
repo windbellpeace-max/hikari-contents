@@ -1,0 +1,221 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;background:var(--color-background-primary);color:var(--color-text-primary)}
+.page{max-width:780px;margin:0 auto;padding:0 0 40px}
+
+/* HERO */
+.hero{background:linear-gradient(145deg,#1E3A1E 0%,#2E6A3E 50%,#1A5A6A 100%);padding:30px 26px 26px;border-radius:0 0 22px 22px;margin-bottom:26px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.28);color:rgba(255,255,255,0.92);font-size:10px;letter-spacing:.1em;padding:3px 11px;border-radius:20px;margin-bottom:12px}
+.hero h1{font-size:19px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:8px}
+.hero h1 em{font-style:normal;color:#A8F0C0}
+.hero-sub{font-size:12px;line-height:1.9;color:rgba(255,255,255,.82)}
+
+/* FILTER AREA */
+.filter-area{padding:0 20px;margin-bottom:20px}
+.filter-row{margin-bottom:12px}
+.filter-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--color-text-secondary);margin-bottom:7px}
+.filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 12px;border-radius:20px;border:1px solid var(--color-border-secondary);background:transparent;font-size:11px;font-weight:500;color:var(--color-text-secondary);cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.chip.active{color:#fff;border-color:transparent}
+.chip.s-chip.active{background:#1A5A2A}
+.chip.p-chip.active{background:#5A3A9A}
+
+/* COUNT */
+.result-count{padding:0 20px;margin-bottom:14px;font-size:12px;color:var(--color-text-secondary)}
+.result-count span{font-weight:700;color:var(--color-text-primary)}
+
+/* GRID */
+.play-grid{padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+
+/* CARD */
+.play-card{border:1px solid var(--color-border-tertiary);border-radius:13px;padding:13px 12px 11px;background:var(--color-background-primary);transition:border-color .15s,transform .1s;position:relative;display:flex;flex-direction:column;gap:8px}
+.play-card:hover{border-color:var(--color-border-secondary);transform:translateY(-1px)}
+.play-card.hidden{display:none}
+.card-emoji{font-size:22px;line-height:1}
+.card-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--color-text-primary)}
+.card-note{font-size:11px;line-height:1.7;color:var(--color-text-secondary)}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.ctag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;letter-spacing:.03em}
+/* sense colors */
+.s-触覚{background:#FFE8F0;color:#902050}
+.s-前庭覚{background:#E8E8FF;color:#303090}
+.s-固有受容覚{background:#E8F8E8;color:#1A6A1A}
+.s-聴覚{background:#FFF3DC;color:#804000}
+.s-視覚{background:#E4F0FF;color:#104080}
+.s-嗅覚{background:#E8F8F0;color:#106040}
+.s-味覚{background:#FFF0F8;color:#802060}
+.s-複合{background:#F0ECFF;color:#503090}
+/* place colors */
+.p-家の中{background:#F5F0FF;color:#503090}
+.p-屋外{background:#E8F8EC;color:#1A5A1A}
+.p-お風呂{background:#E4F4FF;color:#104070}
+.p-日常生活{background:#FFF8EC;color:#705000}
+.p-どこでも{background:#F0F0F0;color:#404040}
+
+/* EMPTY */
+.empty-msg{padding:40px 20px;text-align:center;color:var(--color-text-secondary);font-size:13px;display:none}
+.empty-msg.visible{display:block}
+
+/* NOTE */
+.bottom-note{margin:28px 20px 0;background:linear-gradient(135deg,#EAF5EA,#E4EEF8);border-radius:16px;padding:18px 20px;border:1px solid rgba(40,120,60,.1)}
+.bottom-note h3{font-size:13px;font-weight:700;margin-bottom:7px;color:#1A4A2A}
+.bottom-note p{font-size:12px;line-height:1.9;color:#2A3A2A}
+</style>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">光の翼 子どもの特性相談室　｜　感覚統合あそび集</div>
+  <h1>感覚を育てる<em>あそび</em>を探す</h1>
+  <p class="hero-sub">感覚統合を促すあそびを網羅しました。「どの感覚を育てたいか」「どこでできるか」でしぼり込んで探してください。大切なのは<strong style="color:#A8F0C0">子どもが楽しいと感じること</strong>——材料や手順はご家庭に合わせて自由にアレンジしてください。</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-area">
+  <div class="filter-row">
+    <div class="filter-label">▼ 感覚で絞り込む（複数選択可）</div>
+    <div class="filter-chips" id="sense-chips">
+      <button class="chip s-chip active" data-sense="all" onclick="setSense('all',this)">すべて</button>
+      <button class="chip s-chip" data-sense="触覚" onclick="setSense('触覚',this)">🖐 触覚</button>
+      <button class="chip s-chip" data-sense="前庭覚" onclick="setSense('前庭覚',this)">🌀 前庭覚</button>
+      <button class="chip s-chip" data-sense="固有受容覚" onclick="setSense('固有受容覚',this)">💪 固有受容覚</button>
+      <button class="chip s-chip" data-sense="聴覚" onclick="setSense('聴覚',this)">👂 聴覚</button>
+      <button class="chip s-chip" data-sense="視覚" onclick="setSense('視覚',this)">👁 視覚</button>
+      <button class="chip s-chip" data-sense="嗅覚" onclick="setSense('嗅覚',this)">👃 嗅覚</button>
+      <button class="chip s-chip" data-sense="味覚" onclick="setSense('味覚',this)">👅 味覚</button>
+      <button class="chip s-chip" data-sense="複合" onclick="setSense('複合',this)">✨ 複合</button>
+    </div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-label">▼ 場所で絞り込む</div>
+    <div class="filter-chips" id="place-chips">
+      <button class="chip p-chip active" data-place="all" onclick="setPlace('all',this)">すべて</button>
+      <button class="chip p-chip" data-place="家の中" onclick="setPlace('家の中',this)">🏠 家の中</button>
+      <button class="chip p-chip" data-place="屋外" onclick="setPlace('屋外',this)">🌳 屋外</button>
+      <button class="chip p-chip" data-place="お風呂" onclick="setPlace('お風呂',this)">🛁 お風呂</button>
+      <button class="chip p-chip" data-place="日常生活" onclick="setPlace('日常生活',this)">🍳 日常生活</button>
+      <button class="chip p-chip" data-place="どこでも" onclick="setPlace('どこでも',this)">🌈 どこでも</button>
+    </div>
+  </div>
+</div>
+
+<div class="result-count" id="result-count"><span id="count-num">40</span> 件のあそびが見つかりました</div>
+
+<!-- PLAY GRID -->
+<div class="play-grid" id="play-grid"></div>
+<div class="empty-msg" id="empty-msg">条件に合うあそびが見つかりません。フィルターを変えてみてください。</div>
+
+<!-- NOTE -->
+<div class="bottom-note">
+  <h3>あそびで大切にしたいこと</h3>
+  <p>感覚統合のあそびに「正しいやり方」はありません。子どもが「もっとやりたい！」と感じているとき、脳は最もよく育ちます。無理に続けない・怖がっているときは一歩引く・子どもが主導できる場面を作る——この3つだけ心がけてください。あとは自由にアレンジして楽しんでください。</p>
+</div>
+
+</div>
+
+<script>
+const PLAYS = [
+  // ── 触覚 ──
+  {e:'🌊',n:'水遊び',note:'温度・流れ・抵抗を全身で感じる。素材や温度を変えるだけで感覚の幅が広がります。',s:['触覚'],p:'お風呂'},
+  {e:'🏖️',n:'砂遊び',note:'乾いた砂・濡れた砂・砂泥と質感が変わります。手全体での識別系刺激の基本。',s:['触覚','固有受容覚'],p:'屋外'},
+  {e:'🎨',n:'粘土・小麦粉粘土',note:'こねる・丸める・ちぎる。手指の感覚と力加減を同時に育てます。',s:['触覚','固有受容覚'],p:'家の中'},
+  {e:'🫧',n:'泡あそび',note:'泡の触感・消える感覚・音が統合されます。入浴時に取り入れやすい。',s:['触覚','聴覚'],p:'お風呂'},
+  {e:'🌿',n:'葉っぱ・石・自然素材集め',note:'公園でいろいろな質感の自然物を触り比べる。触覚の識別系を豊かにします。',s:['触覚'],p:'屋外'},
+  {e:'🧤',n:'感触ボックス',note:'箱の中に手を入れて触感だけで何かを当てる。識別系のトレーニングになります。',s:['触覚'],p:'家の中'},
+  {e:'🧼',n:'スライム・こんにゃく遊び',note:'独特の粘性・弾力を手で感じます。最初は嫌がる子も徐々に慣れることがあります。',s:['触覚'],p:'家の中'},
+  {e:'🖌️',n:'フィンガーペインティング',note:'絵の具・片栗粉ペーストを手で直接塗る。指先の感覚を豊かに使います。',s:['触覚','視覚'],p:'家の中'},
+  {e:'🛁',n:'タオルでゴシゴシ',note:'入浴後のタオル拭きを少し強めに。体全体への触覚入力になります。',s:['触覚','固有受容覚'],p:'お風呂'},
+  {e:'🫁',n:'布団サンド',note:'布団の間に挟んで上から軽くプレス。全身への深部圧覚で安心感が生まれます。',s:['触覚','固有受容覚'],p:'家の中'},
+
+  // ── 前庭覚 ──
+  {e:'🪁',n:'ブランコ',note:'規則的な揺れが前庭覚の基本刺激。ゆっくり・速く・前後・横と変化をつけます。',s:['前庭覚','固有受容覚'],p:'屋外'},
+  {e:'🎪',n:'トランポリン',note:'垂直方向の繰り返し刺激。前庭覚と固有受容覚を同時に満たし、落ち着きをもたらします。',s:['前庭覚','固有受容覚'],p:'どこでも'},
+  {e:'🌀',n:'回転あそび',note:'くるくる回る・回転いす・でんぐり返し。鈍麻の子に特に有効。子どものペースで。',s:['前庭覚'],p:'どこでも'},
+  {e:'🛝',n:'滑り台',note:'加速する感覚・着地の衝撃が前庭覚と固有受容覚を同時に刺激します。',s:['前庭覚','固有受容覚'],p:'屋外'},
+  {e:'🤸',n:'でんぐり返し・前転',note:'頭が下になる逆さ感覚は前庭覚への強い刺激。怖がる子は無理をせず。',s:['前庭覚','固有受容覚'],p:'どこでも'},
+  {e:'🏄',n:'バランスボード',note:'不安定な面での立位保持。前庭覚と固有受容覚が連携して姿勢を調整します。',s:['前庭覚','固有受容覚'],p:'家の中'},
+  {e:'🚣',n:'ゆりかご（膝の上で揺れる）',note:'親の膝の上でゆらゆら。乳幼児期の基本。揺れの方向・速さをいろいろ試します。',s:['前庭覚'],p:'どこでも'},
+  {e:'🌊',n:'波乗りごっこ（バスタオル）',note:'バスタオルに乗せて床をひっぱる。安全に速度・揺れを体験できます。',s:['前庭覚','固有受容覚'],p:'家の中'},
+  {e:'🧗',n:'ジャングルジム・登り棒',note:'上下・斜め方向の多様な動きで前庭覚を刺激。空間認識も育ちます。',s:['前庭覚','固有受容覚'],p:'屋外'},
+  {e:'⚖️',n:'シーソー',note:'相手と体重を預け合う経験。重力変化と固有受容覚の統合になります。',s:['前庭覚','固有受容覚'],p:'屋外'},
+
+  // ── 固有受容覚 ──
+  {e:'🏋️',n:'重いものを運ぶ',note:'米袋・水入りボトル・洗濯物。筋肉への深部刺激が固有受容覚を育てます。',s:['固有受容覚'],p:'日常生活'},
+  {e:'🤼',n:'押し相撲・引っ張りあい',note:'全身で力を出し合う。力加減のセンサーを育てる最も自然な遊びのひとつ。',s:['固有受容覚','触覚'],p:'どこでも'},
+  {e:'🐊',n:'動物歩き',note:'熊歩き・カニ歩き・アザラシ歩き。体幹と四肢への深部刺激が同時に入ります。',s:['固有受容覚','前庭覚'],p:'どこでも'},
+  {e:'🧱',n:'壁押し・床押し',note:'10秒間壁や床を全力で押す。座る前のリセットとして有効。落ち着きが出ます。',s:['固有受容覚'],p:'どこでも'},
+  {e:'🤸',n:'うんてい・ぶら下がり',note:'自分の体重を腕で支える。上肢への強い固有受容覚刺激になります。',s:['固有受容覚','前庭覚'],p:'屋外'},
+  {e:'📦',n:'段ボール箱に入る',note:'体を丸める・箱に挟まる感覚は深部圧覚の刺激。落ち着きたいときの自然な行動です。',s:['固有受容覚','触覚'],p:'家の中'},
+  {e:'🏹',n:'新聞紙をぐしゃぐしゃ・ちぎる',note:'手全体への抵抗感が固有受容覚を刺激。ストレス発散にもなります。',s:['固有受容覚','触覚'],p:'家の中'},
+  {e:'🍳',n:'料理のお手伝い',note:'こねる・混ぜる・切る（安全な道具で）。力加減のフィードバックが多い活動です。',s:['固有受容覚','触覚'],p:'日常生活'},
+  {e:'✂️',n:'ハサミ・穴あけパンチ',note:'手に抵抗感があり、力加減の練習になります。安全な道具から始めましょう。',s:['固有受容覚','触覚'],p:'家の中'},
+  {e:'🧹',n:'掃除・拭き掃除',note:'雑巾を絞る・床を拭く。日常生活の中で自然に固有受容覚を使う場面です。',s:['固有受容覚'],p:'日常生活'},
+
+  // ── 聴覚 ──
+  {e:'🥁',n:'打楽器あそび',note:'太鼓・タンバリン・鍋のふた。音の大小・リズムを感じます。聴覚と固有受容覚が連携。',s:['聴覚','固有受容覚'],p:'どこでも'},
+  {e:'🎵',n:'リズムあそび・手拍子',note:'テンポを変えながら手拍子やリズム打ち。聴覚処理とタイミング感覚を育てます。',s:['聴覚','固有受容覚'],p:'どこでも'},
+  {e:'🔊',n:'音あてクイズ',note:'目を閉じて、何の音かを当てる。聴覚識別力と集中力を同時に育てます。',s:['聴覚'],p:'どこでも'},
+  {e:'🎤',n:'歌・鼻歌',note:'自分で音を出す体験が聴覚と固有受容覚（声帯・口腔）を統合します。',s:['聴覚','触覚'],p:'どこでも'},
+
+  // ── 視覚 ──
+  {e:'🔍',n:'間違い探し・かくれんぼ絵',note:'細部を見分ける視覚認知のトレーニング。集中力と図と地の識別力を育てます。',s:['視覚'],p:'家の中'},
+  {e:'🧩',n:'ジグソーパズル',note:'形・色・空間の関係を視覚で処理。難易度を上げながら少しずつ挑戦します。',s:['視覚','固有受容覚'],p:'家の中'},
+  {e:'🌈',n:'光と影あそび',note:'懐中電灯・影絵・プリズム。光の動きを目で追い、視覚追従力を育てます。',s:['視覚'],p:'家の中'},
+  {e:'⚽',n:'ボール遊び',note:'動くものを目で追いながら体を動かす。視覚と運動の統合が同時に育ちます。',s:['視覚','前庭覚','固有受容覚'],p:'どこでも'},
+
+  // ── 嗅覚 ──
+  {e:'🌸',n:'においあてクイズ',note:'目隠しして何の香りか当てる。嗅覚の識別力と記憶力を遊びながら育てます。',s:['嗅覚'],p:'どこでも'},
+  {e:'🍋',n:'料理の香り体験',note:'切る前・後でにおいが変わる野菜・果物を一緒に確かめます。',s:['嗅覚','触覚'],p:'日常生活'},
+
+  // ── 味覚 ──
+  {e:'🍱',n:'一口チャレンジ',note:'新しい食べ物を「一口だけ試す」ルールで挑戦。強制せず、試みを褒めることが大切。',s:['味覚'],p:'日常生活'},
+
+  // ── 複合 ──
+  {e:'🎭',n:'障害物コース',note:'くぐる・跳ぶ・バランス・登る。複数の感覚を同時に使う、最も総合的なあそびです。',s:['複合','前庭覚','固有受容覚','視覚'],p:'どこでも'},
+  {e:'🎋',n:'縄跳び',note:'リズム・タイミング・体幹・目の動きがすべて統合される総合的なあそびです。',s:['複合','前庭覚','固有受容覚','聴覚'],p:'屋外'},
+  {e:'🤾',n:'水たまり渡り・浮島渡り',note:'不安定な足場でバランスを保つ。前庭覚・固有受容覚・触覚が同時に使われます。',s:['複合','前庭覚','固有受容覚','触覚'],p:'屋外'},
+  {e:'🌄',n:'自然散歩・探索',note:'でこぼこ道・坂道・草むら。自然の中は感覚統合の宝庫。あらゆる感覚を使います。',s:['複合','前庭覚','固有受容覚','触覚','視覚','嗅覚'],p:'屋外'},
+  {e:'🎪',n:'縄をくぐる（ゴム跳び）',note:'空間認識・体のコントロール・タイミングの統合。視覚と固有受容覚の連携練習。',s:['複合','視覚','固有受容覚'],p:'どこでも'},
+];
+
+let activeSense = 'all';
+let activePlace = 'all';
+
+function renderCards(){
+  const grid = document.getElementById('play-grid');
+  const empty = document.getElementById('empty-msg');
+  let count = 0;
+  grid.innerHTML = '';
+  PLAYS.forEach(p=>{
+    const sMatch = activeSense==='all' || p.s.includes(activeSense);
+    const pMatch = activePlace==='all' || p.p===activePlace;
+    if(!sMatch||!pMatch) return;
+    count++;
+    const sTags = p.s.map(s=>`<span class="ctag s-${s}">${s}</span>`).join('');
+    const card = document.createElement('div');
+    card.className='play-card';
+    card.innerHTML=`<div class="card-emoji">${p.e}</div><div class="card-name">${p.n}</div><div class="card-note">${p.note}</div><div class="card-tags">${sTags}<span class="ctag p-${p.p}">${p.p}</span></div>`;
+    grid.appendChild(card);
+  });
+  document.getElementById('count-num').textContent = count;
+  empty.classList.toggle('visible', count===0);
+}
+
+function setSense(val, btn){
+  activeSense = val;
+  document.querySelectorAll('.s-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function setPlace(val, btn){
+  activePlace = val;
+  document.querySelectorAll('.p-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+renderCards();
+</script>
