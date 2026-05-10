@@ -1,0 +1,369 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;background:var(--color-background-primary);color:var(--color-text-primary)}
+
+/* HERO */
+.hero{background:linear-gradient(145deg,#1E0A3C 0%,#3D1878 48%,#2A5A9A 100%);padding:34px 28px 30px;border-radius:0 0 24px 24px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50px;right:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.28);color:rgba(255,255,255,0.92);font-size:10px;letter-spacing:0.1em;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.hero h1{font-size:20px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:10px}
+.hero h1 em{font-style:normal;color:#FFD980}
+.hero-sub{font-size:12px;line-height:1.9;color:rgba(255,255,255,0.8)}
+
+/* PYRAMID SECTION */
+.pyr-section{padding:0 20px;margin-bottom:8px}
+.pyr-intro{margin-bottom:16px}
+.pyr-intro h2{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--color-text-primary)}
+.pyr-intro p{font-size:13px;line-height:1.9;color:var(--color-text-secondary)}
+.pyr-hint{text-align:center;font-size:11px;color:var(--color-text-secondary);padding:5px 14px;border:1px dashed var(--color-border-secondary);border-radius:20px;display:inline-block;width:100%;margin-bottom:12px}
+.pyr-layer{cursor:pointer;transition:filter .15s,transform .15s;transform-origin:center}
+.pyr-layer:hover{filter:brightness(1.1);transform:scaleX(1.013)}
+.pyr-layer.active{filter:brightness(1.18) drop-shadow(0 3px 10px rgba(0,0,0,0.22));transform:scaleX(1.02)}
+
+/* DETAIL PANEL */
+.detail-panel{margin:14px 20px 0;border-radius:16px;overflow:hidden;border:1.5px solid var(--color-border-tertiary);background:var(--color-background-primary);display:none}
+.detail-panel.visible{display:block}
+.detail-hdr{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px}
+.detail-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.detail-hdr-text h3{font-size:14px;font-weight:700;margin-bottom:3px}
+.detail-hdr-text .lnum{font-size:10px;font-weight:500;letter-spacing:.06em;opacity:.6}
+.detail-body{padding:0 18px 18px}
+.detail-desc{font-size:12px;line-height:1.9;color:var(--color-text-secondary);margin-bottom:14px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px}
+.detail-item{background:var(--color-background-secondary);border-radius:9px;padding:9px 11px;font-size:11px;line-height:1.7}
+.detail-item strong{display:block;font-size:11px;font-weight:700;margin-bottom:2px}
+.detail-trouble{background:#FFF3F0;border-left:3px solid #C83020;border-radius:0 8px 8px 0;padding:9px 13px;font-size:11px;line-height:1.8;color:#502018;margin-bottom:11px}
+.detail-play{background:var(--color-background-secondary);border-radius:9px;padding:11px 13px;font-size:11px;line-height:1.9}
+.detail-play strong{font-size:11px;font-weight:700;display:block;margin-bottom:3px}
+.close-btn{margin-top:11px;background:none;border:1px solid var(--color-border-secondary);border-radius:8px;padding:5px 13px;font-size:11px;color:var(--color-text-secondary);cursor:pointer;font-family:inherit}
+.close-btn:hover{background:var(--color-background-secondary)}
+
+/* DIVIDER */
+.page-divider{height:1px;background:var(--color-border-tertiary);margin:32px 20px 28px}
+
+/* CARDS SECTION */
+.cards-section{padding:0 20px 0}
+.cards-hdr{margin-bottom:16px}
+.cards-hdr h2{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--color-text-primary)}
+.cards-hdr p{font-size:13px;line-height:1.9;color:var(--color-text-secondary)}
+
+/* TABS */
+.tab-bar{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:20px;padding-bottom:2px}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:7px 13px;font-size:11px;font-weight:500;border:1px solid var(--color-border-secondary);border-radius:20px;background:transparent;color:var(--color-text-secondary);cursor:pointer;margin-right:6px;font-family:inherit;white-space:nowrap;transition:all .15s}
+.tab-btn.active{background:#2D1650;color:#fff;border-color:#2D1650}
+.tab-btn.t-gold.active{background:#8A6200;border-color:#8A6200}
+
+/* CARD GRID */
+.cards-wrap{display:none}
+.cards-wrap.visible{display:block}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--color-text-secondary);margin:0 0 11px;text-transform:uppercase}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+@media(max-width:480px){.cards-grid{grid-template-columns:1fr}}
+.naze-card{border:1px solid var(--color-border-tertiary);border-radius:13px;padding:13px 13px 11px;background:var(--color-background-primary);transition:border-color .15s}
+.naze-card:hover{border-color:var(--color-border-secondary)}
+.talent-card{border:1.5px solid #D4A820;background:linear-gradient(135deg,#FFFDF0,#FFF9E6)}
+.talent-card:hover{border-color:#B8860B}
+.card-top{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px}
+.card-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.card-title{font-size:12px;font-weight:700;line-height:1.4;flex:1;padding-top:2px}
+.card-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:9px;margin-bottom:5px}
+.card-desc{font-size:11px;line-height:1.75;color:var(--color-text-secondary)}
+.talent-card .card-desc{color:#5A4400}
+
+/* TALENT INTRO BANNER */
+.talent-banner{background:linear-gradient(135deg,#FFF8DC,#FFFDF5);border:1.5px solid #D4A820;border-radius:13px;padding:15px 16px;margin-bottom:16px}
+.talent-banner h3{font-size:13px;font-weight:700;color:#6A4800;margin-bottom:5px}
+.talent-banner p{font-size:11px;line-height:1.85;color:#5A4200}
+
+/* BOTTOM NOTE */
+.bottom-note{margin:28px 20px 0;background:linear-gradient(135deg,#EDE8F5,#E4EEF8);border-radius:16px;padding:20px;border:1px solid rgba(100,60,180,0.1)}
+.bottom-note h3{font-size:13px;font-weight:700;margin-bottom:7px;color:#2D1650}
+.bottom-note p{font-size:12px;line-height:1.9;color:#3A2A5A}
+</style>
+
+<div>
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-badge">光の翼 子どもの特性相談室　｜　感覚統合ガイド</div>
+  <h1>子どもの「困った」の根っこにある<br><em>感覚の話</em></h1>
+  <p class="hero-sub">「なぜうちの子はこうなの？」と感じたとき、その背景には<strong style="color:#FFD980">感覚統合</strong>の発達が関係していることがあります。感覚の土台が育つことで、学ぶ力・生きる力が積み上がります。</p>
+</div>
+
+<!-- ═══ PYRAMID ═══ -->
+<div class="pyr-section">
+  <div class="pyr-intro">
+    <h2>感覚統合ピラミッドとは？</h2>
+    <p>A.ジャン・エアーズ博士が提唱した理論で、子どもの発達は<strong>下の層が安定してはじめて上の層が育つ</strong>という階層構造をもちます。各層をタップすると詳しい解説が見られます。</p>
+  </div>
+  <div class="pyr-hint">▼ 各層をタップして詳細を見る</div>
+  <svg width="100%" viewBox="0 0 680 510" role="img">
+    <title>感覚統合ピラミッド図</title>
+    <desc>6層のピラミッド。下から：3つの基礎感覚→姿勢・運動→情緒の安定→認知スキル→学習能力→自己実現</desc>
+    <defs>
+      <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <!-- Layer 6 top -->
+    <g class="pyr-layer" id="pl6" onclick="showPyr(6)">
+      <polygon points="340,26 422,88 258,88" fill="#6840A0" opacity=".93"/>
+      <text x="340" y="63" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="'Noto Sans JP',sans-serif">自己実現・社会性</text>
+    </g>
+    <!-- Layer 5 -->
+    <g class="pyr-layer" id="pl5" onclick="showPyr(5)">
+      <polygon points="258,92 422,92 454,150 226,150" fill="#3870B0" opacity=".93"/>
+      <text x="340" y="119" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="'Noto Sans JP',sans-serif">学習能力・高次機能</text>
+      <text x="340" y="137" text-anchor="middle" fill="rgba(255,255,255,.75)" font-size="10" font-family="'Noto Sans JP',sans-serif">読み・書き・計算・言語理解・創造的思考</text>
+    </g>
+    <!-- Layer 4 -->
+    <g class="pyr-layer" id="pl4" onclick="showPyr(4)">
+      <polygon points="226,154 454,154 490,214 190,214" fill="#2E9070" opacity=".93"/>
+      <text x="340" y="181" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="'Noto Sans JP',sans-serif">認知スキルの基盤</text>
+      <text x="340" y="200" text-anchor="middle" fill="rgba(255,255,255,.75)" font-size="10" font-family="'Noto Sans JP',sans-serif">視覚認知・聴覚認知・記憶力・概念形成</text>
+    </g>
+    <!-- Layer 3 -->
+    <g class="pyr-layer" id="pl3" onclick="showPyr(3)">
+      <polygon points="190,218 490,218 526,278 154,278" fill="#D87828" opacity=".93"/>
+      <text x="340" y="245" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="'Noto Sans JP',sans-serif">情緒・行動の安定</text>
+      <text x="340" y="264" text-anchor="middle" fill="rgba(255,255,255,.75)" font-size="10" font-family="'Noto Sans JP',sans-serif">安心感・自己制御・感情調整・対人関係</text>
+    </g>
+    <!-- Layer 2 -->
+    <g class="pyr-layer" id="pl2" onclick="showPyr(2)">
+      <polygon points="154,282 526,282 564,344 116,344" fill="#C44830" opacity=".93"/>
+      <text x="340" y="309" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="'Noto Sans JP',sans-serif">姿勢・運動のコントロール</text>
+      <text x="340" y="328" text-anchor="middle" fill="rgba(255,255,255,.75)" font-size="10" font-family="'Noto Sans JP',sans-serif">バランス・運動計画・粗大運動・微細運動</text>
+    </g>
+    <!-- Layer 1 base -->
+    <g class="pyr-layer" id="pl1" onclick="showPyr(1)">
+      <polygon points="116,348 564,348 606,416 74,416" fill="#A02858" opacity=".96"/>
+      <text x="340" y="375" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="'Noto Sans JP',sans-serif">🧱 3つの基礎感覚（土台）</text>
+      <text x="340" y="396" text-anchor="middle" fill="rgba(255,255,255,.88)" font-size="11" font-family="'Noto Sans JP',sans-serif">触覚　｜　前庭覚（バランス感覚）　｜　固有受容覚（筋肉・関節の感覚）</text>
+    </g>
+    <!-- Nervous system base -->
+    <rect x="74" y="420" width="532" height="50" rx="10" fill="#F0EBF8" stroke="#B090D0" stroke-width=".8"/>
+    <text x="340" y="441" text-anchor="middle" fill="#3A1A60" font-size="11" font-weight="500" font-family="'Noto Sans JP',sans-serif">＊ 神経系の発達（睡眠・栄養・呼吸リズムなど生理的基盤）</text>
+    <text x="340" y="459" text-anchor="middle" fill="#6A4A8A" font-size="10" font-family="'Noto Sans JP',sans-serif">すべての発達の土台となる身体の調整機能</text>
+    <!-- Arrow -->
+    <line x1="632" y1="458" x2="632" y2="38" stroke="#9060C0" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arw)"/>
+    <text x="654" y="252" text-anchor="middle" fill="#9060C0" font-size="10" font-family="'Noto Sans JP',sans-serif" transform="rotate(90,654,252)">← 下の層が育つと上が伸びる</text>
+  </svg>
+</div>
+
+<!-- PYRAMID DETAIL PANEL -->
+<div class="detail-panel" id="pyr-detail">
+  <div class="detail-hdr" id="pyr-hdr"></div>
+  <div class="detail-body" id="pyr-body"></div>
+</div>
+
+<!-- ═══ DIVIDER ═══ -->
+<div class="page-divider"></div>
+
+<!-- ═══ CARDS SECTION ═══ -->
+<div class="cards-section">
+  <div class="cards-hdr">
+    <h2>うちの子、これかな？</h2>
+    <p>気になる行動・不思議な行動は、感覚のアンバランスからくるサインかもしれません。同じ感覚の鋭さが、将来の<strong>才能の種</strong>になることもあります。感覚の種類ごとにまとめました。</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('all',this)">すべて</button>
+    <button class="tab-btn" onclick="showTab('touch',this)">触覚</button>
+    <button class="tab-btn" onclick="showTab('vest',this)">前庭覚</button>
+    <button class="tab-btn" onclick="showTab('prop',this)">固有受容覚</button>
+    <button class="tab-btn" onclick="showTab('aud',this)">聴覚</button>
+    <button class="tab-btn" onclick="showTab('vis',this)">視覚</button>
+    <button class="tab-btn" onclick="showTab('comb',this)">複合・姿勢</button>
+    <button class="tab-btn t-gold" onclick="showTab('talent',this)">✨ 才能の種</button>
+  </div>
+
+  <!-- ALL TAB -->
+  <div class="cards-wrap visible" id="tab-all">
+    <p class="sec-label" style="color:#A02858">触覚 ｜ 触れる感覚の過敏・鈍さ</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF0F4">👕</div><div class="card-title">服のタグ・素材を極端に嫌がる</div></div><span class="card-tag" style="background:#FFF0F4;color:#A02858">触覚過敏</span><p class="card-desc">皮膚の防衛反応が過剰に働いている状態。特定の素材・縫い目・ゴムが「痛み」に近い感覚になることがあります。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF0F4">🤲</div><div class="card-title">砂・粘土・のりを触りたがらない</div></div><span class="card-tag" style="background:#FFF0F4;color:#A02858">触覚過敏</span><p class="card-desc">べたべた・ざらざら感への防衛反応。遊びの幅が狭まったり、図工や給食で困ることがあります。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF0F4">✂️</div><div class="card-title">爪切り・耳かき・歯磨きを嫌がる</div></div><span class="card-tag" style="background:#FFF0F4;color:#A02858">触覚過敏</span><p class="card-desc">口・耳周辺は触覚受容器が特に多い部位。過敏があると日常ケアが強い苦痛に感じます。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF8EC">✏️</div><div class="card-title">鉛筆を噛む・紙をクシャクシャにする</div></div><span class="card-tag" style="background:#FFF8EC;color:#904010">触覚鈍麻（感覚探求）</span><p class="card-desc">口や手からの感覚刺激を「もっと欲しい」サイン。無意識に感覚を補おうとしている行動です。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF0F4">🙅</div><div class="card-title">触られるのは嫌なのに自分からは抱く</div></div><span class="card-tag" style="background:#FFF0F4;color:#A02858">触覚過敏</span><p class="card-desc">「予測できない刺激」が苦痛なのが触覚過敏の特徴。自分から触るときは予測できるため平気なことが多い。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF8EC">🩹</div><div class="card-title">転んでも痛がらない・怪我に気づかない</div></div><span class="card-tag" style="background:#FFF8EC;color:#904010">触覚鈍麻</span><p class="card-desc">痛覚・温覚も含めた触覚全体が鈍い状態。安全面への注意が特に必要で、早めの対応が大切です。</p></div>
+    </div>
+
+    <p class="sec-label" style="color:#3060A0;margin-top:4px">前庭覚 ｜ バランス・動きの感覚</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEEEFF">🌀</div><div class="card-title">くるくる回り続ける・目が回らない</div></div><span class="card-tag" style="background:#EEEEFF;color:#3030A0">前庭覚鈍麻（感覚探求）</span><p class="card-desc">回転刺激への感受性が低く、普通なら目が回る回転でも平気。もっと強い刺激を求めて回り続けます。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEEEFF">🏃</div><div class="card-title">激しい動きをやめない・高所に登る</div></div><span class="card-tag" style="background:#EEEEFF;color:#3030A0">前庭覚鈍麻（感覚探求）</span><p class="card-desc">動きや重力変化の刺激を強く求めている状態。危険に見える行動も、感覚ニーズから来ていることが多い。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#E8F0FF">😨</div><div class="card-title">ブランコ・坂道を極端に怖がる</div></div><span class="card-tag" style="background:#E8F0FF;color:#103080">前庭覚過敏</span><p class="card-desc">わずかな揺れや傾きでも強い不安や恐怖を感じる状態。乗り物酔いが起きやすい子にも多いです。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEEEFF">🪑</div><div class="card-title">椅子でゆらゆら・足をブラブラ止められない</div></div><span class="card-tag" style="background:#EEEEFF;color:#3030A0">前庭覚・固有受容覚</span><p class="card-desc">前庭覚からの刺激を自分で作り出している行動。「落ち着きのなさ」ではなく感覚のニーズの表れです。</p></div>
+    </div>
+
+    <p class="sec-label" style="color:#2A6A2A;margin-top:4px">固有受容覚 ｜ 筋肉・関節の感覚</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEFAEE">✏️</div><div class="card-title">鉛筆を強く握りすぎる・力加減できない</div></div><span class="card-tag" style="background:#EEFAEE;color:#1A5A1A">固有受容覚</span><p class="card-desc">「どのくらいの力か」のフィードバックが弱い状態。強く押すことで感覚を補おうとしています。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEFAEE">👊</div><div class="card-title">叩く・押す力が強すぎる・乱暴に見える</div></div><span class="card-tag" style="background:#EEFAEE;color:#1A5A1A">固有受容覚鈍麻</span><p class="card-desc">力加減の感覚が不正確なため、悪意なく強く叩いてしまう。「わざと」ではないことが多い。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#EEFAEE">🚗</div><div class="card-title">乗り物に酔いやすい・揺れに弱い</div></div><span class="card-tag" style="background:#EEFAEE;color:#1A5A1A">前庭覚・固有受容覚</span><p class="card-desc">前庭覚と視覚・固有受容覚からの情報のミスマッチが酔いを招きます。感覚統合の弱さが一因に。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#F0F8F0">🛋️</div><div class="card-title">布団に挟まりたがる・重いものを好む</div></div><span class="card-tag" style="background:#F0F8F0;color:#1A5A1A">固有受容覚（感覚探求）</span><p class="card-desc">全身への深部圧覚が心地よく落ち着きをもたらします。自分でその感覚を求めている行動です。</p></div>
+    </div>
+
+    <p class="sec-label" style="color:#804000;margin-top:4px">聴覚 ｜ 音の感じ方</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF8EC">🔊</div><div class="card-title">掃除機・チャイム・人混みの音が怖い</div></div><span class="card-tag" style="background:#FFF8EC;color:#804000">聴覚過敏</span><p class="card-desc">特定の音域や突発的な音を「痛み」と感じるほど過剰に受け取る状態。耳をふさぐ・パニックになることも。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#FFF8EC">👂</div><div class="card-title">呼んでも返事をしない・聞き取りが弱い</div></div><span class="card-tag" style="background:#FFF8EC;color:#804000">聴覚（選択的注意の困難）</span><p class="card-desc">全ての音が均等に入ってくるため必要な音だけを選べない状態。「無視」ではなく、どれが重要か分からない状態。</p></div>
+    </div>
+
+    <p class="sec-label" style="color:#104080;margin-top:4px">視覚 ｜ 見え方の感覚</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#E8F4FF">💡</div><div class="card-title">蛍光灯・日差しをまぶしがる・嫌がる</div></div><span class="card-tag" style="background:#E8F4FF;color:#104080">視覚過敏</span><p class="card-desc">光の刺激を過剰に受け取り、通常なら気にならない明るさでも強い不快感が生じます。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#E8F4FF">🎡</div><div class="card-title">回るもの・光るものをずっと見つめる</div></div><span class="card-tag" style="background:#E8F4FF;color:#104080">視覚（感覚探求）</span><p class="card-desc">特定の視覚パターンが強い快感・落ち着きをもたらす状態。感覚処理の偏りを示すサインのひとつ。</p></div>
+    </div>
+
+    <p class="sec-label" style="color:#484848;margin-top:4px">複合・姿勢 ｜ 複数の感覚にまたがる困り</p>
+    <div class="cards-grid">
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#F0F0F0">🪑</div><div class="card-title">姿勢がすぐ崩れる・机にもたれかかる</div></div><span class="card-tag" style="background:#F0F0F0;color:#404040">前庭覚＋固有受容覚</span><p class="card-desc">姿勢を保つ筋肉への感覚フィードバックが弱い状態。「だらしない」ではなく基礎感覚が育ちきっていないサインです。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#F0F0F0">🍽️</div><div class="card-title">偏食が極端・特定の食感を強く拒否する</div></div><span class="card-tag" style="background:#F0F0F0;color:#404040">触覚＋嗅覚・味覚</span><p class="card-desc">口腔内の触覚過敏に加え、嗅覚・味覚の過敏が重なることが多い。「わがまま」ではなく生理的な苦痛が原因です。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#F0F0F0">🚶</div><div class="card-title">よく転ぶ・階段が苦手・不器用に見える</div></div><span class="card-tag" style="background:#F0F0F0;color:#404040">前庭覚＋固有受容覚＋触覚</span><p class="card-desc">空間の中での自分の体の位置感覚（ボディイメージ）が育ちにくい状態。基礎3感覚の連携がうまくいっていないサインです。</p></div>
+      <div class="naze-card"><div class="card-top"><div class="card-icon" style="background:#F0F0F0">😱</div><div class="card-title">予定変更・環境の変化でパニックになる</div></div><span class="card-tag" style="background:#F0F0F0;color:#404040">感覚＋情緒調整</span><p class="card-desc">感覚処理に多くのエネルギーを使っているため、変化への適応に使える余力が少ない状態です。</p></div>
+    </div>
+
+    <!-- TALENT inline -->
+    <div style="margin-top:16px;padding-top:18px;border-top:2px dashed #D4A820">
+      <p class="sec-label" style="color:#7A5800;margin-bottom:12px">✨ 困りの裏側にある才能の種</p>
+      <div class="talent-banner">
+        <h3>感覚が「鋭すぎる」ことは、裏返せば特別なセンサーを持っているということ</h3>
+        <p>感覚統合が整い、感覚をうまくコントロールできるようになると、鋭い感覚はそのまま才能の種になります。今は困っているその感覚が、将来の強みになる可能性を秘めています。</p>
+      </div>
+      <div class="cards-grid">
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">👁️</div><div class="card-title">チラッと見ただけで全体を把握する</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">視覚過敏 → 視覚的才能</span><p class="card-desc">一瞬で細部や全体を記憶に収める「写真的記憶」。絵・デザイン・建築・漫画・写真などの分野で光ります。</p></div>
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">🎵</div><div class="card-title">外国語の音・騒音まで正確に再現できる</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">聴覚過敏 → 音楽的才能</span><p class="card-desc">音の高さ・質感を鋭く捉える力が絶対音感に直結。音楽家・声優・通訳などで突出した力を発揮します。</p></div>
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">🤌</div><div class="card-title">素材・質感の微妙な違いを瞬時に識別する</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">触覚過敏 → 職人的才能</span><p class="card-desc">指先の感覚が何倍も鋭く、素材の差や加工の精度を感じ取れる。陶芸・料理・美容・外科などに活きます。</p></div>
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">👃</div><div class="card-title">かすかな匂いの違いをすぐ察知する</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">嗅覚過敏 → 嗅覚的才能</span><p class="card-desc">調香師・ソムリエ・料理人・医療など。嗅覚の鋭さは他の人が代わりにはなれない稀少な能力です。</p></div>
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">🎯</div><div class="card-title">力加減・体の動きを精密にコントロールする</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">固有受容覚 → 身体的精度</span><p class="card-desc">感覚統合が整うと、筋肉・関節のセンサーの鋭さが精密な動作制御に変わります。楽器演奏・工芸・スポーツの「名手」に多い特性です。</p></div>
+        <div class="naze-card talent-card"><div class="card-top"><div class="card-icon" style="background:#FFFACD">💫</div><div class="card-title">場の空気・人の感情の変化をすぐ感じる</div></div><span class="card-tag" style="background:#FFF5C0;color:#7A5800">複合感覚 → 共感・洞察力</span><p class="card-desc">皮膚感覚・聴覚・視覚の鋭さが統合されると、他者の微細な変化を察知する共感力・洞察力に変わります。</p></div>
+      </div>
+    </div>
+  </div><!-- /tab-all -->
+
+  <!-- filtered tabs (populated by JS) -->
+  <div class="cards-wrap" id="tab-touch"></div>
+  <div class="cards-wrap" id="tab-vest"></div>
+  <div class="cards-wrap" id="tab-prop"></div>
+  <div class="cards-wrap" id="tab-aud"></div>
+  <div class="cards-wrap" id="tab-vis"></div>
+  <div class="cards-wrap" id="tab-comb"></div>
+  <div class="cards-wrap" id="tab-talent"></div>
+</div>
+
+<!-- BOTTOM NOTE -->
+<div class="bottom-note">
+  <h3>大切なことひとつ ── 叱らず、まず「なぜ」を知る</h3>
+  <p>ここにある行動はすべて、子どもが「感覚のバランスを保とう」としている体の反応です。叱る・無理に止めるより、<strong>その行動が何の感覚を求めているのかを理解する</strong>ことが最初の一歩です。そして、その感覚の鋭さの中に、その子だけの才能が宿っていることを忘れないでください。</p>
+</div>
+</div>
+
+<script>
+/* ── PYRAMID DATA ── */
+const PD = {
+  1:{color:'#A02858',bg:'#FFF0F6',lbl:'第1層（土台）',title:'3つの基礎感覚',icon:'🧱',
+    desc:'発達の最も大切な基盤です。触覚・前庭覚・固有受容覚の3つは胎児期・乳児期から発達し、「安心して動く・遊ぶ・学ぶ」すべての土台になります。この層が整っていないと、上の層はどんなに頑張っても不安定になりがちです。',
+    items:[{n:'触覚',d:'皮膚で感じる感覚。識別系（何に触れたか判断）と防衛系（危険を知らせる）の2種類があります。'},{n:'前庭覚',d:'体の傾きや回転、重力を感じる感覚。バランス・姿勢保持・眼球運動などに深く関わります。'},{n:'固有受容覚',d:'筋肉・関節からの感覚で、自分の体の位置・力加減・動きを把握します。「体の地図」とも呼ばれます。'},{n:'3つの連携',d:'この3つは互いに密接に関わり合い、まとめて「隠れた感覚」とも呼ばれています。'}],
+    trouble:'⚠ この層が不安定なとき：服のタグが気になる、ブランコが極端に怖い、力加減がわからない、転びやすい、姿勢が保てない、など',
+    play:'砂遊び・粘土・水遊び（触覚）／ブランコ・トランポリン（前庭覚）／重いものを運ぶ・布団にくるまる（固有受容覚）'},
+  2:{color:'#C44830',bg:'#FFF4F0',lbl:'第2層',title:'姿勢・運動のコントロール',icon:'🏃',
+    desc:'基礎感覚が育つと、体を安定してコントロールできるようになります。走る・跳ぶといった粗大運動から、鉛筆を使う・ハサミで切るといった微細運動まで、すべての運動スキルがここに含まれます。',
+    items:[{n:'バランス・姿勢制御',d:'机に座り続ける、転ばずに動く、立っているときの安定性。'},{n:'運動計画（プラクシス）',d:'新しい動きを順序立てて実行する力。スポーツや道具使いに必要。'},{n:'粗大運動',d:'走る・跳ぶ・登る・投げるなど大きな筋肉を使った運動。'},{n:'微細運動・両側協調',d:'左右の手を協調させて使う力。書字・ハサミ・料理などに必要。'}],
+    trouble:'⚠ この層が不安定なとき：椅子にじっと座れない、字のバランスが崩れる、運動が苦手、ボタンが留められない、など',
+    play:'ボール遊び・縄跳び（粗大運動）／折り紙・ブロック遊び（微細運動）／バランスボード・動物歩き（姿勢づくり）'},
+  3:{color:'#D87828',bg:'#FFF6EC',lbl:'第3層',title:'情緒・行動の安定',icon:'💛',
+    desc:'体の感覚が整うと、心が安定します。感覚の過敏さがあると、ちょっとしたことでパニックになったり、落ち着きがなくイライラしたりすることがあります。逆に、体が安心できると自己制御がしやすくなり、対人関係も安定してきます。',
+    items:[{n:'安心感・情緒の調整',d:'刺激への反応が安定し、気持ちの切り替えがしやすくなります。'},{n:'自己制御',d:'衝動的な行動を抑えたり、待ったりする力。ルールを守る基盤。'},{n:'ストレス耐性',d:'新しい環境や変化に対応できる柔軟さ。'},{n:'対人関係の安定',d:'友達と遊べる、先生の話が落ち着いて聞ける。'}],
+    trouble:'⚠ この層が不安定なとき：すぐパニックになる、気持ちの切り替えが難しい、攻撃的になる、集団が苦手、ルールが守れない、など',
+    play:'安心グッズの用意（ぬいぐるみ等）／リズム遊び・一緒に歌う／深呼吸ゲーム／「今日は何をしたい？」と選択肢を与える'},
+  4:{color:'#2E9070',bg:'#EDFAF5',lbl:'第4層',title:'認知スキルの基盤',icon:'👁️',
+    desc:'情緒が安定した状態ではじめて、「見る力・聞く力・覚える力」が育ちます。この層には視覚認知・聴覚認知・記憶力などが含まれ、次の学習スキルへの架け橋になります。',
+    items:[{n:'視覚認知',d:'形・色・文字・空間の関係を正しく理解する力。読みに直結。'},{n:'聴覚認知',d:'言葉の聞き分け、音の方向、背景雑音の中から必要な音を選ぶ力。'},{n:'記憶力',d:'視覚記憶・聴覚記憶・ワーキングメモリ。学習の保存と再生。'},{n:'概念形成',d:'カテゴリー理解、パターン認識、因果関係の把握。'}],
+    trouble:'⚠ この層が不安定なとき：文字を覚えにくい、聞き間違いが多い、黒板を書き写すのが遅い、物の名前を思い出せない、など',
+    play:'間違い探し・ジグソーパズル（視覚認知）／しりとり・音あてクイズ（聴覚認知）／神経衰弱・買い物ごっこ（記憶力）'},
+  5:{color:'#3870B0',bg:'#EEF4FC',lbl:'第5層',title:'学習能力・高次機能',icon:'📖',
+    desc:'認知スキルの土台の上に、具体的な学習技能が積み上がります。学校教育で必要なスキルのほとんどがこの層ですが、この層でのつまずきは、多くの場合より下の層の不安定さが原因です。',
+    items:[{n:'読み・書き',d:'文字の認識、スムーズな音読、書写・作文。'},{n:'計算・数的理解',d:'数の概念、四則演算、量の比較。'},{n:'言語理解・表現',d:'話の意味を理解し、自分の考えを言葉にする力。'},{n:'問題解決・創造性',d:'論理的思考、応用力、アイデアを形にする力。'}],
+    trouble:'⚠ この層が不安定なとき：読み書きが著しく苦手、算数の文章題がわからない、授業についていけない、など',
+    play:'好きなキャラクター名を写す・短い日記（読み書き）／料理での計量・おつり計算（数）／絵本の読み聞かせ（言語理解）'},
+  6:{color:'#6840A0',bg:'#F4EFF8',lbl:'第6層（頂点）',title:'自己実現・社会性',icon:'⭐',
+    desc:'最上層は、子どもが社会の中で自分らしく力を発揮する段階です。学業成就・自己肯定感・友達との関係・将来の職業適応などが含まれます。しかし、これはすべて下の層の安定があってこそ実現します。',
+    items:[{n:'自己肯定感',d:'「自分はできる」という感覚。成功体験の積み重ねで育ちます。'},{n:'社会適応',d:'集団のルールを守り、他者と協力できる力。'},{n:'学業・創造的活動',d:'個性や興味を活かした学びと表現。'},{n:'職業スキル（将来）',d:'自分の得意を社会で活かす力。感覚統合の発達が基盤。'}],
+    trouble:'⚠ この層が育つには：すべての下層の土台が必要です。「上だけ伸ばそう」とする前に、土台を育てる視点が大切です。',
+    play:'家族と役割分担して家事（自己有用感）／ボードゲーム（社会スキル）／好きなことを家族の前で発表する（表現力）'}
+};
+
+let curPyr = null;
+function showPyr(n){
+  const panel=document.getElementById('pyr-detail');
+  const hdr=document.getElementById('pyr-hdr');
+  const body=document.getElementById('pyr-body');
+  const d=PD[n];
+  if(curPyr===n && panel.classList.contains('visible')){
+    panel.classList.remove('visible'); curPyr=null;
+    document.querySelectorAll('.pyr-layer').forEach(l=>l.classList.remove('active')); return;
+  }
+  curPyr=n;
+  document.querySelectorAll('.pyr-layer').forEach(l=>l.classList.remove('active'));
+  document.getElementById('pl'+n).classList.add('active');
+  hdr.style.background=d.bg;
+  hdr.style.borderBottom=`1px solid ${d.color}28`;
+  hdr.innerHTML=`<div class="detail-icon" style="background:${d.bg};font-size:20px">${d.icon}</div><div class="detail-hdr-text"><div class="lnum" style="color:${d.color}">${d.lbl}</div><h3 style="color:${d.color}">${d.title}</h3></div>`;
+  const items=d.items.map(it=>`<div class="detail-item"><strong style="color:${d.color}">${it.n}</strong>${it.d}</div>`).join('');
+  body.innerHTML=`<p class="detail-desc">${d.desc}</p><div class="detail-grid">${items}</div><div class="detail-trouble">${d.trouble}</div><div class="detail-play"><strong>🎮 家庭でできる遊び・工夫</strong>${d.play}</div><div style="margin-top:10px"><button class="close-btn" onclick="closePyr()">閉じる</button></div>`;
+  panel.classList.add('visible');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closePyr(){
+  document.getElementById('pyr-detail').classList.remove('visible');
+  document.querySelectorAll('.pyr-layer').forEach(l=>l.classList.remove('active'));
+  curPyr=null;
+}
+
+/* ── CARD TABS ── */
+/* map tab id → indices of cards in #tab-all .naze-card NodeList */
+const TAB={
+  touch:[0,1,2,3,4,5],
+  vest:[6,7,8,9],
+  prop:[10,11,12,13],
+  aud:[14,15],
+  vis:[16,17],
+  comb:[18,19,20,21]
+};
+/* talent cards are separate class talent-card */
+
+function showTab(id,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.cards-wrap').forEach(c=>c.classList.remove('visible'));
+  btn.classList.add('active');
+
+  if(id==='all'){document.getElementById('tab-all').classList.add('visible');return;}
+
+  const wrap=document.getElementById('tab-'+id);
+  wrap.classList.add('visible');
+
+  if(wrap.innerHTML.trim()!=='') return; /* already built */
+
+  if(id==='talent'){
+    /* clone talent cards from all tab */
+    const src=document.querySelectorAll('#tab-all .talent-card');
+    const banner=document.querySelector('#tab-all .talent-banner');
+    const g=document.createElement('div');
+    if(banner){const b=banner.cloneNode(true);b.style.marginBottom='16px';g.appendChild(b);}
+    const gr=document.createElement('div'); gr.className='cards-grid';
+    src.forEach(c=>gr.appendChild(c.cloneNode(true)));
+    g.appendChild(gr);
+    wrap.appendChild(g);
+    return;
+  }
+
+  const allCards=document.querySelectorAll('#tab-all .naze-card:not(.talent-card)');
+  const indices=TAB[id]||[];
+  const gr=document.createElement('div'); gr.className='cards-grid';
+  indices.forEach(i=>{if(allCards[i]) gr.appendChild(allCards[i].cloneNode(true));});
+  wrap.appendChild(gr);
+}
+</script>

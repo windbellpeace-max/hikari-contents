@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>逆引き辞典 — 子どもの特性相談室</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif; background: #fafaf8; color: #1a1a18; line-height: 1.7; font-size: 15px; }
+a { color: inherit; text-decoration: none; }
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Header */
+.site-header { border-bottom: 1px solid #e8e6df; padding: 1.25rem 0; background: #fff; }
+.site-header .container { display: flex; align-items: baseline; gap: 1rem; }
+.site-name { font-size: 13px; color: #888; }
+.site-title { font-size: 18px; font-weight: 600; color: #1a1a18; }
+
+/* Page hero */
+.hero { padding: 2.5rem 0 1.75rem; border-bottom: 1px solid #e8e6df; margin-bottom: 2rem; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 0.5rem; }
+.hero-title { font-size: 26px; font-weight: 600; color: #1a1a18; margin-bottom: 0.5rem; line-height: 1.3; }
+.hero-desc { font-size: 14px; color: #666; line-height: 1.75; max-width: 600px; }
+
+/* Index */
+.index-box { background: #f5f3ec; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem; }
+.index-group { margin-bottom: 1rem; }
+.index-group:last-child { margin-bottom: 0; }
+.index-group-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; margin-bottom: 0.5rem; }
+.index-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.index-link { font-size: 12px; padding: 4px 12px; border: 1px solid #ddd; border-radius: 999px; background: #fff; color: #555; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.index-link:hover { background: #eee; border-color: #bbb; }
+
+/* Category section */
+.cat-section { margin-bottom: 3rem; padding-top: 2rem; border-top: 1px solid #e8e6df; }
+.cat-num { font-size: 11px; color: #aaa; margin-bottom: 0.2rem; }
+.cat-title { font-size: 20px; font-weight: 600; color: #1a1a18; line-height: 1.35; margin-bottom: 0.4rem; }
+.cat-sub { font-size: 13px; color: #666; line-height: 1.75; margin-bottom: 0.75rem; }
+.cat-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1rem; }
+
+/* Badges */
+.badge { font-size: 11px; padding: 3px 10px; border-radius: 999px; white-space: nowrap; font-weight: 500; }
+.b-asd  { background: #eeedfe; color: #3c3489; }
+.b-adhd { background: #e6f1fb; color: #0c447c; }
+.b-hsc  { background: #eaf3de; color: #27500a; }
+.b-ld   { background: #faeeda; color: #633806; }
+.b-att  { background: #fbeaf0; color: #72243e; }
+.b-sec  { background: #f1efe8; color: #444441; }
+
+/* Block labels */
+.block-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; margin-bottom: 0.6rem; margin-top: 1.25rem; }
+
+/* Signs */
+.signs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.25rem; }
+.sign { font-size: 12px; background: #f5f3ec; border-radius: 6px; padding: 4px 10px; color: #333; line-height: 1.4; }
+
+/* Routes */
+.routes { display: flex; flex-direction: column; gap: 8px; }
+.route { border: 1px solid #e8e6df; border-radius: 10px; padding: 0.85rem 1.1rem; background: #fff; }
+.route-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 0.4rem; flex-wrap: wrap; }
+.route-name { font-size: 13px; font-weight: 600; color: #1a1a18; }
+.route-body { font-size: 12px; color: #666; line-height: 1.7; }
+
+/* Supports */
+.supports { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.sup { border: 1px solid #e8e6df; border-radius: 10px; padding: 0.8rem 1rem; background: #fff; }
+.sup-title { font-size: 12px; font-weight: 600; color: #1a1a18; margin-bottom: 0.3rem; }
+.sup-body { font-size: 12px; color: #666; line-height: 1.65; }
+
+/* Caution */
+.caution { background: #fef9ef; border-left: 3px solid #f5c842; border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; font-size: 12px; color: #666; line-height: 1.7; margin: 0.75rem 0; }
+.caution-lbl { font-size: 10px; font-weight: 600; color: #b8860b; margin-bottom: 0.2rem; }
+
+/* Source */
+.src { font-size: 11px; color: #aaa; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #f0ede5; }
+
+/* Footer */
+.site-footer { border-top: 1px solid #e8e6df; padding: 2rem 0; margin-top: 3rem; font-size: 12px; color: #aaa; line-height: 1.8; }
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 20px; }
+  .cat-title { font-size: 17px; }
+  .supports { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <span class="site-name">子どもの特性相談室</span>
+    <span class="site-title">逆引き辞典</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="hero">
+    <p class="hero-eyebrow">Reverse Reference Dictionary</p>
+    <h1 class="hero-title">「困った行動」から特性と対応を調べる</h1>
+    <p class="hero-desc">「うちの子、こういうことがある」という気になる行動を入口に、考えられる背景の特性と、まず試せるサポートの方向性を調べられます。この辞典は診断・判定を行うものではありません。</p>
+  </div>
+
+  <!-- INDEX -->
+  <div class="index-box">
+    <div class="index-group">
+      <p class="index-group-label">感情・行動の調節</p>
+      <div class="index-links">
+        <a class="index-link" href="#c01">①かんしゃく・感情の爆発</a>
+        <a class="index-link" href="#c02">②衝動的な言動・手が出る</a>
+        <a class="index-link" href="#c03">③自己肯定感の低さ</a>
+      </div>
+    </div>
+    <div class="index-group">
+      <p class="index-group-label">コミュニケーション・対人関係</p>
+      <div class="index-links">
+        <a class="index-link" href="#c04">④友達トラブルが絶えない</a>
+        <a class="index-link" href="#c05">⑤友達ができない・孤立</a>
+        <a class="index-link" href="#c06">⑥大人への反抗・不信</a>
+        <a class="index-link" href="#c07">⑦場面緘黙</a>
+      </div>
+    </div>
+    <div class="index-group">
+      <p class="index-group-label">日常生活・実行機能</p>
+      <div class="index-links">
+        <a class="index-link" href="#c08">⑧指示に従えない</a>
+        <a class="index-link" href="#c09">⑨こだわり・切り替えが難しい</a>
+        <a class="index-link" href="#c10">⑩忘れ物・片付けられない</a>
+      </div>
+    </div>
+    <div class="index-group">
+      <p class="index-group-label">感覚・身体</p>
+      <div class="index-links">
+        <a class="index-link" href="#c11">⑪感覚への過敏な反応</a>
+        <a class="index-link" href="#c12">⑫疲れやすい・消耗しやすい</a>
+      </div>
+    </div>
+    <div class="index-group">
+      <p class="index-group-label">学習・認知</p>
+      <div class="index-links">
+        <a class="index-link" href="#c13">⑬読む・音読が苦手</a>
+        <a class="index-link" href="#c14">⑭書く・漢字が苦手</a>
+        <a class="index-link" href="#c15">⑮数・計算が苦手</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ① -->
+  <section class="cat-section" id="c01">
+    <p class="cat-num">カテゴリ 01</p>
+    <h2 class="cat-title">かんしゃく・泣き止まない・感情の爆発</h2>
+    <p class="cat-sub">切り替えられない怒り、泣き崩れ、パニック状態——感情の制御に関わる脳のしくみに特性があると、些細なきっかけで感情が大きく溢れ出すことがあります。</p>
+    <div class="cat-badges"><span class="badge b-asd">ASD</span><span class="badge b-adhd">ADHD</span><span class="badge b-hsc">HSC</span><span class="badge b-att">愛着障害</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">ちょっとしたことで大泣き・大声</span><span class="sign">泣き始めると止まらない</span><span class="sign">予定変更でパニックになる</span><span class="sign">自分の思い通りにならないと崩れる</span><span class="sign">落ち着くまでに長時間かかる</span><span class="sign">爆発後に本人が後悔・自己嫌悪</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">見通しの立たなさ・切り替えの困難</span></div><p class="route-body">「こうなるはず」というイメージが崩れたとき、感情の切り替えが極めて難しい。予告なし・急な変更・完璧にできなかった失敗が引き金になりやすい。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">衝動性・感情調節機能の弱さ</span></div><p class="route-body">感情を「ためておく」脳の調節機能が弱く、感じた感情がそのまま行動として出やすい。爆発の後に「なぜ怒ったか分からない」ことも多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">刺激過多による消耗・閾値の低さ</span></div><p class="route-body">日中の刺激が積み重なり、夕方以降に限界を超えて崩れやすい。本人は「頑張りすぎた後」に泣き崩れることが多く、怠けではない。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-att">愛着障害</span><span class="route-name">感情表現の手段・愛情確認行動</span></div><p class="route-body">叱られることを含む「注目される体験」で愛情を確かめようとする場合がある。感情表現の方法自体が発達しにくい環境が背景にあることも。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">爆発中は声かけを最小限に</p><p class="sup-body">「落ち着いて」「なんで泣くの」は逆効果。嵐が過ぎるのを安全に待つ。近くにいて「ここにいるよ」だけ伝える。</p></div>
+      <div class="sup"><p class="sup-title">見通しを事前に共有する</p><p class="sup-body">「あと10分で終わりにするよ」など予告を習慣にする。急な変更の際も理由を簡潔に伝えるだけで崩れにくくなる場合がある。</p></div>
+      <div class="sup"><p class="sup-title">「落ち着けるコーナー」を作る</p><p class="sup-body">クールダウンできる静かな場所や道具（ブランケット・好きなもの）を決めておく。爆発を防ぐための逃げ場として機能させる。</p></div>
+      <div class="sup"><p class="sup-title">HSCなら「消耗サイン」を先に読む</p><p class="sup-body">夕方の崩れが多いなら昼寝・静かな時間を意図的に設ける。刺激の少ない環境での回復時間を1日のスケジュールに組み込む。</p></div>
+    </div>
+    <p class="src">参照：KAIEN、キズキ共育塾、LITALICO発達ナビ等</p>
+  </section>
+
+  <!-- ② -->
+  <section class="cat-section" id="c02">
+    <p class="cat-num">カテゴリ 02</p>
+    <h2 class="cat-title">衝動的な言動・手が出る・順番を待てない</h2>
+    <p class="cat-sub">思ったことをすぐ口にする、割り込む、手が出る——「わかっていてもやめられない」のは、抑制の脳機能の特性による場合があります。</p>
+    <div class="cat-badges"><span class="badge b-adhd">ADHD</span><span class="badge b-asd">ASD</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">思ったことを即座に口にする</span><span class="sign">列に割り込む・ゲームで待てない</span><span class="sign">人の話の途中で話し出す</span><span class="sign">気に入らないと手が出る</span><span class="sign">後から「なぜそうしたか」わからない</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">衝動性・抑制機能の弱さ</span></div><p class="route-body">「やりたい」「言いたい」という衝動を一時的にとめる脳の制御機能が弱い。叱られてもその場では止まれず、後から後悔するパターンが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">ルール・暗黙の了解の理解の困難</span></div><p class="route-body">「順番を待つ」「相手が話しているときは黙る」などの暗黙のルールが直感的に理解しにくく、結果として割り込みに見える行動をとることがある。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「叱る」より「次の行動」を教える</p><p class="sup-body">「ダメ」だけでなく「こうしてみよう」と具体的な代替行動を短く伝える。繰り返すことで少しずつ学習できる。</p></div>
+      <div class="sup"><p class="sup-title">待つ練習を遊びの中でする</p><p class="sup-body">短い待ち時間から始めるゲーム（砂時計を使うなど）で「待てた」成功体験を積む。いきなり長時間の待機は難易度が高すぎる。</p></div>
+      <div class="sup"><p class="sup-title">ルールを「見える化」する</p><p class="sup-body">ASDの場合、「話を聞くときは手を膝に置く」など行動をカード・絵・文字で明示することで理解しやすくなる。</p></div>
+    </div>
+    <p class="src">参照：文部科学省ADHDハンドブック、LITALICO、千葉市特別支援教育ハンドブック等</p>
+  </section>
+
+  <!-- ③ -->
+  <section class="cat-section" id="c03">
+    <p class="cat-num">カテゴリ 03</p>
+    <h2 class="cat-title">自己肯定感の低さ・強い自己批判・投げやり</h2>
+    <p class="cat-sub">「どうせ自分はダメ」「また失敗した」——特性による失敗の積み重ねが二次的な自己否定につながっていることが多い。</p>
+    <div class="cat-badges"><span class="badge b-sec">二次障害（全特性）</span><span class="badge b-hsc">HSC</span><span class="badge b-att">愛着障害</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">「どうせ自分はダメ」が口癖</span><span class="sign">失敗を極端に恐れ挑戦しない</span><span class="sign">できた経験を自分の実力と思えない</span><span class="sign">他者の評価に過剰に反応する</span><span class="sign">投げやりな態度・諦めが早い</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-sec">二次障害（全特性共通）</span><span class="route-name">特性による失敗体験の蓄積</span></div><p class="route-body">ASD・ADHD・LDなどの特性があることで、学校生活での失敗・叱責・比較が繰り返され、「自分は能力がない」という信念が形成される。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">傷つきやすさ・完璧主義</span></div><p class="route-body">他者の評価やちょっとした言葉に深く傷つき、小さな失敗でも自分を責め続けやすい。完璧にできないと感じると挑戦自体を避けるようになる。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-att">愛着障害</span><span class="route-name">根本的な自己価値の低さ</span></div><p class="route-body">「自分は愛される価値がない」という基底的な信念が形成されている場合、行動の失敗とは別次元で自己否定が根深い。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「できた」の記録を可視化する</p><p class="sup-body">小さな達成を日々メモする・貼り出すなどして、本人が自分の成功を見えるかたちで蓄積できる仕組みを作る。</p></div>
+      <div class="sup"><p class="sup-title">結果より「取り組み」をほめる</p><p class="sup-body">「よくやったね」より「あそこで諦めなかったね」など過程への具体的な言及が自己効力感を育てる。</p></div>
+      <div class="sup"><p class="sup-title">失敗の再解釈を一緒にする</p><p class="sup-body">「失敗＝ダメ」ではなく「次に何を試すか」という問いに変える。一緒に振り返ることで問題解決の習慣へ。</p></div>
+    </div>
+    <p class="src">参照：障害に学ぶ会、with-ac、キズキ共育塾等</p>
+  </section>
+
+  <!-- ④ -->
+  <section class="cat-section" id="c04">
+    <p class="cat-num">カテゴリ 04</p>
+    <h2 class="cat-title">友達とのトラブルが絶えない</h2>
+    <p class="cat-sub">空気が読めない、一方的に話す、悪意なく傷つける——本人は「なぜ揉めたか」を理解できていないことが多い。</p>
+    <div class="cat-badges"><span class="badge b-asd">ASD</span><span class="badge b-adhd">ADHD</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">自分の話を一方的にしゃべり続ける</span><span class="sign">相手の気持ちを察せず傷つける</span><span class="sign">ゲームのルール変更・不公平に激怒</span><span class="sign">冗談と本気の区別が難しい</span><span class="sign">謝れない・自分は悪くないと主張</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">コミュニケーションの特性</span></div><p class="route-body">相手の気持ちや意図を場の雰囲気から読み取ることが難しく、言葉通りに解釈したり、自分の興味を優先した会話になりやすい。悪意はないが結果として傷つけてしまう。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">衝動的な言動・話の割り込み</span></div><p class="route-body">思ったことを即座に口にする衝動性から、相手が傷つく言葉を発したり話を遮ったりしてしまう。本人は悪気がなく後から後悔するケースが多い。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「相手がどう感じたか」を後から考える</p><p class="sup-body">トラブル後に責めるのではなく「相手はどう思ったと思う？」と問いかけ、気持ちの想像を練習する時間にする。</p></div>
+      <div class="sup"><p class="sup-title">ソーシャルスキルを明示的に教える</p><p class="sup-body">「人が話しているときは聞く」「ごめんねと言う場面」など、暗黙のルールをはっきり言葉で教えることが有効。</p></div>
+      <div class="sup"><p class="sup-title">少人数・共通の趣味がある場で</p><p class="sup-body">多人数より少人数・共通の趣味がある場で深い関係を1〜2人作る方向性で。小さな場の方が成功体験を積みやすい。</p></div>
+    </div>
+    <p class="src">参照：スタジオそら、LITALICO、welbe等</p>
+  </section>
+
+  <!-- ⑤ -->
+  <section class="cat-section" id="c05">
+    <p class="cat-num">カテゴリ 05</p>
+    <h2 class="cat-title">友達ができない・孤立・人づきあいで疲れる</h2>
+    <p class="cat-sub">輪に入れない、または入ろうとしない、人と一緒にいると疲れる——理由は特性によって異なる。</p>
+    <div class="cat-badges"><span class="badge b-asd">ASD</span><span class="badge b-hsc">HSC</span><span class="badge b-att">愛着障害</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">休み時間をひとりで過ごす</span><span class="sign">グループ活動を嫌がる</span><span class="sign">仲良くしたいのに方法がわからない</span><span class="sign">友達と遊ぶと帰宅後にぐったりする</span><span class="sign">人と関わることを避けるようになる</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">コミュニケーションの質の違い</span></div><p class="route-body">会話の「流れ」「暗黙のルール」を読むことが難しく、グループの会話についていけないと感じやすい。孤立は望んでいないが、参加の方法がわからない状態のことが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">刺激過多・深く処理する性質</span></div><p class="route-body">集団の中での情報量（声・表情・関係性）を深く処理するため、消耗が早い。「1人が好き」ではなく「一緒にいるとくたびれてしまう」ことが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-att">愛着障害</span><span class="route-name">他者への不信・回避</span></div><p class="route-body">「人は自分を傷つける」という無意識の前提から、関係を近づけることを本人が回避している場合がある。表面上は「友達がいらない」に見える。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「1人でいる」をまず責めない</p><p class="sup-body">「友達を作りなさい」は逆効果になりやすい。まず「1人の時間も大切」というメッセージを伝えながら、安心できる小さな接点を作っていく。</p></div>
+      <div class="sup"><p class="sup-title">共通の興味がある小集団から</p><p class="sup-body">クラスより少人数・共通のテーマがある場（習い事・クラブ等）の方が関係を築きやすい。話題が決まっていると会話が楽になる。</p></div>
+      <div class="sup"><p class="sup-title">帰宅後の回復時間を確保する</p><p class="sup-body">HSCの場合、帰宅後の「静かな時間」が翌日の社会的な余力を作る。宿題より先に回復を優先することを本人・学校と共有する。</p></div>
+    </div>
+    <p class="src">参照：療育biz、キズキ共育塾、ゆめいく等</p>
+  </section>
+
+  <!-- ⑥ -->
+  <section class="cat-section" id="c06">
+    <p class="cat-num">カテゴリ 06</p>
+    <h2 class="cat-title">大人への反抗・不信・極端な気遣い</h2>
+    <p class="cat-sub">親や先生に強く反発する、またはその逆に異常なほど顔色をうかがう——両方が「信頼の基盤」の問題として現れることがある。</p>
+    <div class="cat-badges"><span class="badge b-att">愛着障害</span><span class="badge b-adhd">ADHD</span><span class="badge b-asd">ASD</span></div>
+    <div class="caution"><p class="caution-lbl">このカテゴリについて</p>愛着障害が強く関係するカテゴリです。ただし「愛着障害＝親の愛情不足」ではなく、さまざまな要因（入院・死別・精神的に不安定な環境等）が背景になりえます。</div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">大人の指示に何でも反発する</span><span class="sign">大人を試すような行動を繰り返す</span><span class="sign">気に入った大人に極端にくっつく</span><span class="sign">先生に過度に気を遣い疲れる</span><span class="sign">「どうせ怒るでしょ」と先回りして防衛</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-att">愛着障害</span><span class="route-name">信頼の基盤が不安定</span></div><p class="route-body">「大人は自分を傷つける」または「大人の愛情は不安定」という経験から、反発（試し行動）や過剰な気遣い（顔色うかがい）の両方が生じうる。叱られることで注目を確認しようとする場合もある。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">叱責の積み重ねによる反発</span></div><p class="route-body">特性による失敗で叱られ続けた結果、大人＝叱る存在という関係が固定化し、防衛的な反抗が生じる。二次的な反抗であることが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">曖昧な指示への反応</span></div><p class="route-body">「早くして」「ちゃんとして」などの曖昧な指示が理解できず、結果として反発に見える。「なぜそうするのか」の理由がわかると従いやすくなることが多い。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「試し行動」を試していると理解する</p><p class="sup-body">愛着障害の試し行動は「自分を見捨てないか確認している」行為。感情的に怒らず穏やかに一貫した反応を続けることが信頼形成につながる。</p></div>
+      <div class="sup"><p class="sup-title">指示を具体的・短くする</p><p class="sup-body">「〇〇してください」を一度に一つ。理由も短く添えると納得して動きやすくなる。</p></div>
+      <div class="sup"><p class="sup-title">専門家との連携を早めに</p><p class="sup-body">愛着の問題は家庭だけでの対応に限界がある。スクールカウンセラーや児童相談所、発達外来との連携を早めに検討する。</p></div>
+    </div>
+    <p class="src">参照：with-ac、障害に学ぶ会、ゆめいく等</p>
+  </section>
+
+  <!-- ⑦ -->
+  <section class="cat-section" id="c07">
+    <p class="cat-num">カテゴリ 07</p>
+    <h2 class="cat-title">場面緘黙 — 話せる場面と話せない場面がある</h2>
+    <p class="cat-sub">家では普通に話せるのに、学校ではひと言も出ない——「わざと話さない」のではなく、不安から身体が声を出せない状態です。</p>
+    <div class="cat-badges"><span class="badge b-hsc">HSC（不安気質）</span><span class="badge b-asd">ASD</span><span class="badge b-att">愛着障害</span></div>
+    <div class="caution"><p class="caution-lbl">よくある誤解</p>「人見知りが激しい」「恥ずかしがり屋」と見過ごされやすい。慣れとは別次元の不安・恐怖が背景にあり、適切な支援なしに自然に解消することは少ない。</div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">学校では一言も声が出ない</span><span class="sign">先生に当てられると固まる</span><span class="sign">家では活発に話す</span><span class="sign">返事をしないので無視と誤解される</span><span class="sign">表情が乏しく何を考えているか分からない</span><span class="sign">トイレに行きたくても言い出せない</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-hsc">不安・抑制的な気質</span><span class="route-name">社会場面での強い恐怖</span></div><p class="route-body">もともと不安傾向が強い気質に、入学・進級などの環境変化が加わって発症することが多い。DSM-5では不安症の一つに分類される。発症は2〜5歳ごろが多く、小学校入学後に顕在化しやすい。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">コミュニケーションの困難が重複</span></div><p class="route-body">ASDの社会的コミュニケーションの難しさが場面緘黙として現れる場合がある。ASD特性を見落とすと、緘黙だけへの支援では改善しにくい。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「話させよう」としない</p><p class="sup-body">「小さな声でいいから」「言ってみて」は心理的負担を高める。指さし・うなずき・メモ等の非言語コミュニケーションを積極的に使う。</p></div>
+      <div class="sup"><p class="sup-title">スモールステップで話せる場を広げる</p><p class="sup-body">家→家族録音→学校で聞かせる、など段階的エクスポージャーが有効。一度に1要素（人・場所・活動のうち一つ）だけ変える。</p></div>
+      <div class="sup"><p class="sup-title">「おとなしい子」と見過ごさない</p><p class="sup-body">本人は困っているが表に出せない。担任への情報共有、スクールカウンセラー・かんもくネット等の専門団体への相談を検討する。</p></div>
+    </div>
+    <p class="src">参照：かんもくネット、済生会、名古屋ひだまりこころクリニック、LITALICO等</p>
+  </section>
+
+  <!-- ⑧ -->
+  <section class="cat-section" id="c08">
+    <p class="cat-num">カテゴリ 08</p>
+    <h2 class="cat-title">指示に従えない・話を聞かない</h2>
+    <p class="cat-sub">聞いていない、分かったと言うがやらない、何度言っても同じ——理由は特性によって異なる。</p>
+    <div class="cat-badges"><span class="badge b-adhd">ADHD</span><span class="badge b-asd">ASD</span><span class="badge b-hsc">HSC</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">呼んでも振り向かないことがある</span><span class="sign">「分かった」と言ってもやらない</span><span class="sign">複数の指示を覚えていられない</span><span class="sign">別のことに気を取られてしまう</span><span class="sign">急に言われると固まってしまう</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">ワーキングメモリの弱さ・不注意</span></div><p class="route-body">聞いたことを一時的に保持する「ワーキングメモリ」が弱く、複数の指示を覚えていられない。「聞いていなかった」のではなく「保持できなかった」。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">言葉の字義通り解釈・予告なしへの困難</span></div><p class="route-body">「ちゃんとして」「早く」などの曖昧な指示は理解できない。突然の指示よりも事前の予告があると動きやすい。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">考えすぎて動作が遅れる</span></div><p class="route-body">指示を聞いた後に「どうやろう」「間違えたら」と深く考えすぎて動き出せないことがある。反抗ではなく処理の時間がかかっている状態。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">指示は「一時一事・短く・具体的に」</p><p class="sup-body">「宿題してから片付けて着替えて」は3つの指示。まず「宿題をしてね」だけ伝え、終わったら次を伝える。</p></div>
+      <div class="sup"><p class="sup-title">視覚的に手順を示す</p><p class="sup-body">やることリスト・フローチャート・絵カードなど。口頭指示だけより定着しやすく、本人も確認できる。</p></div>
+      <div class="sup"><p class="sup-title">返事を確認してから動かす</p><p class="sup-body">「今言ったこと言えるかな？」と復唱させる。記憶に入っているか確認でき、指示を意識する習慣にもなる。</p></div>
+    </div>
+    <p class="src">参照：文部科学省ADHDハンドブック、welbe、千葉市特別支援ハンドブック等</p>
+  </section>
+
+  <!-- ⑨ -->
+  <section class="cat-section" id="c09">
+    <p class="cat-num">カテゴリ 09</p>
+    <h2 class="cat-title">こだわりが強い・切り替えが難しい</h2>
+    <p class="cat-sub">順番・手順・場所にこだわる、やめられない——ASDの中核的な特性であることが多く、本人にとってこだわりは安心のための必需品。</p>
+    <div class="cat-badges"><span class="badge b-asd">ASD</span><span class="badge b-adhd">ADHD（過集中）</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">決まった順番・手順を変えられると崩れる</span><span class="sign">特定の場所・座席にこだわる</span><span class="sign">好きなことを「やめて」と言われると大パニック</span><span class="sign">特定のテーマだけを延々と話し続ける</span><span class="sign">食事・服・ルートが毎日同じでないと嫌がる</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">同一性保持・見通しへの強いニーズ</span></div><p class="route-body">変化・予測不能・曖昧さへの不安が非常に強く、「いつもと同じ」にすることで安心感を保っている。こだわりを奪われることは安全基地を失うことに近い感覚。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD（過集中）</span><span class="route-name">過集中状態からの切り替え困難</span></div><p class="route-body">好きなことに入り込むと外からの声が届かなくなる「過集中」状態。やめられないのは反抗ではなく、切り替えの脳機能の問題。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">事前に「終わりの時間」を告知する</p><p class="sup-body">「あと10分で終わりにするよ」を繰り返すことで切り替えが準備できる。タイマー・砂時計の視覚化も効果的。</p></div>
+      <div class="sup"><p class="sup-title">こだわりを「替えられるもの」と分ける</p><p class="sup-body">すべてを変えようとせず、生活に支障が少ないこだわりは尊重する。本当に必要な変更だけに絞って対応する。</p></div>
+      <div class="sup"><p class="sup-title">変化は段階的に、理由を添えて</p><p class="sup-body">急な変更は最もパニックになりやすい。「今日は〇〇の理由でルートを変えます」と事前に伝えると受け入れやすくなることがある。</p></div>
+    </div>
+    <p class="src">参照：スタジオそら、LITALICO発達ナビ等</p>
+  </section>
+
+  <!-- ⑩ -->
+  <section class="cat-section" id="c10">
+    <p class="cat-num">カテゴリ 10</p>
+    <h2 class="cat-title">忘れ物・片付けられない・段取りが組めない</h2>
+    <p class="cat-sub">毎日声かけしても変わらない、部屋が片付かない——「実行機能」の弱さが背景にある場合、やる気の問題ではない。</p>
+    <div class="cat-badges"><span class="badge b-adhd">ADHD</span><span class="badge b-asd">ASD</span><span class="badge b-ld">書字障害</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">毎日必ず何か忘れる</span><span class="sign">持ち物の場所が分からなくなる</span><span class="sign">宿題の段取りが自分でできない</span><span class="sign">翌日の準備が終わらない</span><span class="sign">部屋が「どこから手をつけるか」分からない</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-adhd">ADHD</span><span class="route-name">実行機能の弱さ</span></div><p class="route-body">計画を立てる・優先順位をつける・実行する・切り替える——これら「実行機能」全体が弱い。怠けではなく、段取りそのものが脳の特性として難しい。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">一般化の困難・細部へのとらわれ</span></div><p class="route-body">「片付ける」という曖昧な指示に対し何からやればいいか分からない。細部に意識が向きすぎて全体の段取りが見えなくなる場合もある。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-ld">書字障害</span><span class="route-name">記録・メモができない</span></div><p class="route-body">書くことが困難なため連絡帳・メモが取れず情報管理がしにくい。書けないから忘れる、という連鎖が生じる。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「定位置」を決めて視覚化する</p><p class="sup-body">カバン・財布・鍵などの置き場所を固定し、ラベルや写真で示す。「どこに置くか考える」という手順を省けるようにする。</p></div>
+      <div class="sup"><p class="sup-title">チェックリストを作る</p><p class="sup-body">「持ち物リスト」「朝の準備リスト」など本人が確認しながら進められる仕組みを作る。完成したらチェックをつける達成感も重要。</p></div>
+      <div class="sup"><p class="sup-title">「片付ける」を分割して指示する</p><p class="sup-body">「本を棚に入れる」「服をカゴに入れる」と具体的に一段階ずつ伝える。「きれいにして」は情報が少なすぎる。</p></div>
+    </div>
+    <p class="src">参照：文部科学省ADHDハンドブック、welbe、千葉市特別支援ハンドブック等</p>
+  </section>
+
+  <!-- ⑪ -->
+  <section class="cat-section" id="c11">
+    <p class="cat-num">カテゴリ 11</p>
+    <h2 class="cat-title">感覚への過敏な反応（音・触れる・食べ物など）</h2>
+    <p class="cat-sub">特定の音で耳をふさぐ、特定の服が着られない、偏食——感覚処理の特性は、本人にとって「不快」ではなく「苦痛」レベルであることが多い。</p>
+    <div class="cat-badges"><span class="badge b-asd">ASD</span><span class="badge b-hsc">HSC</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">掃除機・花火の音で耳をふさぐ</span><span class="sign">タグや縫い目が気になって服が着られない</span><span class="sign">特定の食感・においの食べ物を強く拒否する</span><span class="sign">大人数・騒がしい場所で著しく消耗する</span><span class="sign">逆に痛みや暑さに気づかない（鈍麻）</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD</span><span class="route-name">感覚処理の特性（過敏・鈍麻）</span></div><p class="route-body">感覚情報をフィルタリングする脳の機能に特性があり、特定の刺激が他の人より著しく強く・不快に感じられる。逆に鈍麻（痛みに気づかない等）も同じ原因で起きる。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">刺激の深い処理</span></div><p class="route-body">刺激を深く・細かく処理する神経系の特性から、多くの人が気にしない刺激（生地の触れ感・BGMの音など）に強く反応してしまう。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">「我慢させない」を前提にする</p><p class="sup-body">「これくらい」「気のせい」は本人の苦痛を否定する。まず感覚の困難さを認め、環境側を調整することを優先する。</p></div>
+      <div class="sup"><p class="sup-title">回避できる選択肢を用意する</p><p class="sup-body">イヤーマフ・タグなしの服・席の配慮など。回避を許可することで本人のエネルギー消費が大幅に減る。</p></div>
+      <div class="sup"><p class="sup-title">偏食は「安心できる食べ物の確保」を先に</p><p class="sup-body">食べられるものを責めず確保しながら、新しい食べ物は強制しない形で少しずつ提示する。</p></div>
+    </div>
+    <p class="src">参照：LITALICO発達ナビ、スタジオそら、ベネッセ等</p>
+  </section>
+
+  <!-- ⑫ -->
+  <section class="cat-section" id="c12">
+    <p class="cat-num">カテゴリ 12</p>
+    <h2 class="cat-title">疲れやすい・すぐしんどくなる・エネルギーが続かない</h2>
+    <p class="cat-sub">楽しいことの後もぐったり、集団生活で消耗しきる——体力の問題ではなく、神経系の消耗が原因の場合がある。</p>
+    <div class="cat-badges"><span class="badge b-hsc">HSC</span><span class="badge b-asd">ASD（感覚過敏）</span><span class="badge b-sec">不安（二次障害）</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">楽しいイベントの後も疲れ果てる</span><span class="sign">学校から帰るとぐったり動けない</span><span class="sign">人と会った後に長い回復時間が必要</span><span class="sign">月〜金は頑張れるが週末に崩れる</span><span class="sign">「しんどい」と訴えるが医療的異常なし</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-hsc">HSC</span><span class="route-name">刺激の深い処理による消耗</span></div><p class="route-body">受け取る情報量が多く、それを深く処理するため、同じ場面でも消耗の度合いが他の子と大きく違う。「たくさん頑張っている」のが見えにくいだけで、本人は常に全力。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-asd">ASD（感覚過敏）</span><span class="route-name">感覚の処理コストの高さ</span></div><p class="route-body">感覚過敏があると、教室の蛍光灯・周囲の声・人の多さすべてが常にコストをかけて処理される。「普通に座っているだけ」でも多大なエネルギーを使っている。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-sec">不安（二次障害）</span><span class="route-name">慢性的な緊張・警戒による消耗</span></div><p class="route-body">「また失敗するかも」という慢性的な緊張状態が、常に体力を消費させている。怠けではなく疲弊している状態。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">帰宅後の「回復時間」を予定に組み込む</p><p class="sup-body">「何もしない時間」は怠けではなく必要な充電。宿題・習い事の前に15〜30分の静かな時間を先に確保する。</p></div>
+      <div class="sup"><p class="sup-title">過密スケジュールを見直す</p><p class="sup-body">習い事・行事・コミュニケーションの量が過多でないか確認する。「何もしない日」を意図的に作ることが長期的なパフォーマンスを上げる。</p></div>
+      <div class="sup"><p class="sup-title">「疲れた」を信じる</p><p class="sup-body">「見た目は元気そう」でも本人の訴えを受け入れる。「大げさ」と思わず、疲れているという事実を肯定することが自己理解につながる。</p></div>
+    </div>
+    <p class="src">参照：キズキ共育塾、療育biz、ブレインクリニック等</p>
+  </section>
+
+  <!-- ⑬ -->
+  <section class="cat-section" id="c13">
+    <p class="cat-num">カテゴリ 13</p>
+    <h2 class="cat-title">読む・音読が極端に苦手</h2>
+    <p class="cat-sub">文字が飛ぶ、読み間違いが多い、ひらがなが定着しない——読字の困難は「練習不足」ではなく脳の情報処理の特性によるものです。</p>
+    <div class="cat-badges"><span class="badge b-ld">LD音韻型（ディスレクシア）</span><span class="badge b-ld">LD視覚型</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">音読が詰まる・読み間違いが多い</span><span class="sign">行を飛ばして読む</span><span class="sign">文字が動いて見える（視覚型）</span><span class="sign">ひらがなはできるが漢字が定着しない</span><span class="sign">読むのは遅いが聞いて理解するのは速い</span><span class="sign">文章の内容より読むこと自体に精一杯</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-ld">音韻処理型（ディスレクシア）</span><span class="route-name">文字と音の対応が掴みにくい</span></div><p class="route-body">文字が表す音を処理する機能に困難がある。ひらがなは対応がシンプルなので気づかれにくく、漢字で顕在化することが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-ld">視覚情報処理型</span><span class="route-name">文字の形・位置の認識が難しい</span></div><p class="route-body">文字の形や行の位置を正確に捉えることが難しく、読み間違い・行飛ばしが起きやすい。「文字が動いて見える」と表現する子もいる。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">音声入力・読み上げツールを活用する</p><p class="sup-body">「聴いて理解する」という代替手段が有効。音声読み上げアプリ・タブレットのテキスト読み上げ機能を学校と相談して導入する。</p></div>
+      <div class="sup"><p class="sup-title">行を追いやすくする工夫</p><p class="sup-body">下敷きで読んでいる行だけを見せる、定規で位置を固定する、フォントや行間を大きくするなど視覚的な補助を使う。</p></div>
+      <div class="sup"><p class="sup-title">「読む力」と「思考力」を切り離す</p><p class="sup-body">読みが苦手でも聴いて理解する力は高い場合が多い。「音声で聞いて答える」形に変えるだけで力を発揮できることがある。</p></div>
+    </div>
+    <p class="src">参照：LITALICO発達ナビ、触るグリフ、全国地域生活支援機構等</p>
+  </section>
+
+  <!-- ⑭ -->
+  <section class="cat-section" id="c14">
+    <p class="cat-num">カテゴリ 14</p>
+    <h2 class="cat-title">書く・漢字が極端に苦手</h2>
+    <p class="cat-sub">読めるのに書けない、マスから字がはみ出す、筆圧が安定しない——書くことに関わる脳のしくみの特性です。反復練習より原因の経路を見極めることが先決。</p>
+    <div class="cat-badges"><span class="badge b-ld">LD書字障害（視覚処理型）</span><span class="badge b-ld">LD書字障害（音韻型）</span><span class="badge b-ld">LD書字障害（協調運動型）</span></div>
+    <div class="caution"><p class="caution-lbl">親御さんへ</p>書き取り練習を量で増やしても、経路が合っていない場合は改善しないうえに自己否定感だけが積み重なります。「なぜ書けないか」の経路を見極めることが出発点です。</div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">マスや行から字が大きくはみ出す</span><span class="sign">漢字のパーツの位置が逆になる</span><span class="sign">板書を写し終わる前に消される</span><span class="sign">読めるのに書けない・思い出せない</span><span class="sign">余分な線や点を書き加えてしまう</span><span class="sign">筆圧が極端に薄い・強い</span>
+    </div>
+    <p class="block-label">考えられる背景（3つの経路）</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-ld">視覚情報処理型</span><span class="route-name">文字の形を記憶・再現できない</span></div><p class="route-body">文字のパーツの位置・大きさを視覚的に把握し記憶することが難しい。読めるのに書けない場合にこの経路が多い。漢字の複雑さから小学校高学年で気づかれることが多い。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-ld">音韻処理型（読字困難との重複）</span><span class="route-name">音と文字の対応が書きに影響</span></div><p class="route-body">読字困難と書字困難が重複するケース。読みの困難が軽度でも書きに大きく影響する場合があり、重複率は約30〜47%。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-ld">協調運動型（DCD）</span><span class="route-name">手を思った通りに動かせない</span></div><p class="route-body">目と手の連動・指先の細かい動作に困難があり、文字の形は分かっていても鉛筆のコントロールで崩れてしまう。不器用さ全般を伴うことが多い。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">書き取りを量で増やさない</p><p class="sup-body">経路に合わない反復練習は「自分は無理」という体験の積み重ねになる。まず何が原因かを見極めることを優先する。</p></div>
+      <div class="sup"><p class="sup-title">タブレット・写真での板書記録</p><p class="sup-body">書く代わりにタブレットで黒板を撮影する等の代替手段を学校と相談する。</p></div>
+      <div class="sup"><p class="sup-title">体を使って形を覚える</p><p class="sup-body">空中に指で大きく書く、背中に書いて当てっこするなど触覚・運動感覚を使う方法が記憶に結びつきやすい場合がある。</p></div>
+      <div class="sup"><p class="sup-title">手先の力をつける遊びを日常に</p><p class="sup-body">協調運動型の場合、粘土・ひも通し・なぞり書きなど。OT（作業療法士）のアプローチが有効なケースもある。</p></div>
+    </div>
+    <p class="src">参照：LITALICO発達ナビ、触るグリフ、全国地域生活支援機構、天神メディア等</p>
+  </section>
+
+  <!-- ⑮ -->
+  <section class="cat-section" id="c15">
+    <p class="cat-num">カテゴリ 15</p>
+    <h2 class="cat-title">数・計算・文章題が極端に苦手</h2>
+    <p class="cat-sub">数の概念が掴めない、九九が定着しない、繰り上がりで混乱する——算数障害（ディスカリキュリア）はLDの中でも最も見過ごされやすいタイプの一つです。</p>
+    <div class="cat-badges"><span class="badge b-ld">LD算数障害</span><span class="badge b-ld">読字障害との重複</span></div>
+    <p class="block-label">こんな様子が見られる</p>
+    <div class="signs">
+      <span class="sign">数の大きさの感覚が掴めない</span><span class="sign">九九が何度やっても入らない</span><span class="sign">繰り上がり・繰り下がりで混乱する</span><span class="sign">文章題が読めても式が立てられない</span><span class="sign">時計の読み方・時間の計算が極端に苦手</span><span class="sign">お金の計算・おつりの概念が掴めない</span>
+    </div>
+    <p class="block-label">考えられる背景</p>
+    <div class="routes">
+      <div class="route"><div class="route-head"><span class="badge b-ld">算数障害（ディスカリキュリア）</span><span class="route-name">数の量感・処理の特性</span></div><p class="route-body">数が「量」として直感的に掴みにくく、計算を手続きとして覚えることも難しい。九九は暗記しても「何のための計算か」が繋がらないことがある。</p></div>
+      <div class="route"><div class="route-head"><span class="badge b-ld">読字障害との重複</span><span class="route-name">文章題の「読む」部分でつまずく</span></div><p class="route-body">算数の計算自体は問題ないが、文章題の「読む」部分でつまずく場合がある。読字障害との重複を確認することが重要。</p></div>
+    </div>
+    <p class="block-label">まず試せるサポートの方向性</p>
+    <div class="supports">
+      <div class="sup"><p class="sup-title">具体物で「量」を体感させる</p><p class="sup-body">ブロック・コイン・指など実物を使って数の大きさを体で理解する。抽象的な数字だけで教えると分かりにくい場合が多い。</p></div>
+      <div class="sup"><p class="sup-title">九九は「歌・リズム」で入れる</p><p class="sup-body">音韻的な記憶経路を使うと定着しやすいケースがある。意味の理解と暗記は別ルートで同時並行してよい。</p></div>
+      <div class="sup"><p class="sup-title">電卓・補助ツールの使用を認める</p><p class="sup-body">計算の手続きが苦手でも、算数的思考の力は高い場合がある。計算ツールを認めることで本来の力を発揮できる。</p></div>
+      <div class="sup"><p class="sup-title">文章題は「読む」と「解く」を分ける</p><p class="sup-body">読字困難が重複している場合、文章を読み上げてもらうだけで正答率が上がることがある。</p></div>
+    </div>
+    <p class="src">参照：LITALICO発達ナビ、全国地域生活支援機構、マドレクリニック等</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>この辞典は「困りごと」を入口に背景の特性とサポートの方向性を調べるものです。診断・判定を行うものではありません。</p>
+    <p>情報源：LITALICO発達ナビ・ジュニア、ベネッセ教育情報、全国地域生活支援機構、かんもくネット、触るグリフ、文部科学省、千葉市養護教育センター、各クリニックほか</p>
+    <p style="margin-top:0.5rem;">© 子どもの特性相談室</p>
+  </div>
+</footer>
+
+</body>
+</html>
